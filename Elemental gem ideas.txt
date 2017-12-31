@@ -1,0 +1,8 @@
+- Damage
+- Repeat effect
+- Delay effect
+- Lifesteal damage
+- Convert damage into healing
+- Summon
+- Move
+- Choose an element (targetting)

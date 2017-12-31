@@ -1,0 +1,7 @@
+- Rune
+- Main runic gem (variable). Need to differentiate each of them.
+- Elemental gem
+- Context gem
+- Energy gem
+- Efficiency gem
+- Composite gem (Parentheses)
