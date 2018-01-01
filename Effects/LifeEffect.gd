@@ -12,7 +12,8 @@ func _ready():
 	pass
 
 func reeval():
-	if hp < 0:
+	print("Life left: " + String(hp))
+	if hp <= 0:
 		# Die
-		death = class_death.new()
+		var death = class_death.new()
 		element.battleground.addEffect(death,element)

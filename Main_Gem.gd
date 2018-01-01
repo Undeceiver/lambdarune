@@ -10,4 +10,4 @@ func subst(rune, main_gem):
 		return self
 
 func to_string():
-	return "[VAR]"
+	return String(gem_rune.getvarnum())

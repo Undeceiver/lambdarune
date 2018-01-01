@@ -16,8 +16,7 @@ func effectIn(effect):
 	if effect.hasType("element_added"):
 		for subeffect in effect.element_added.findEffects("graphic"):
 			element.add_graphic_element(subeffect)
-
-func effectOut(effect):
+	
 	# Whenever a graphic effect is removed, or a node with graphic effects, remove the node from the battleground.
 	if effect.hasType("effect_removed"):
 		if effect.sub_effect.hasType("graphic"):

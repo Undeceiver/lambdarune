@@ -11,6 +11,9 @@ const class_element = preload("Element.gd")
 const class_position = preload("Effects/Position.gd")
 const class_movement = preload("Effects/MoveEffect.gd")
 const class_graphic = preload("Effects/GraphicEffect.gd")
+const class_life = preload("Effects/LifeEffect.gd")
+
+const class_gem_parser = preload("GemParser.gd")
 
 var g_battleground
 var g_element1
@@ -168,7 +171,113 @@ func test_positions_2_on_press():
 	processBattleground(g_battleground,10)
 	g_battleground.processGraphics()
 
+func test_rune_parsing_1():
+	randomize()
+	
+	var parser = class_gem_parser.new()
+	
+	var text = "(\\x 0.65 ((\\y 0.74 (y (y x))) dmg5)) dmg12;"
+	#var text = "(\\x 0.65 ((\\y 0.74 x) (dmg5;))) dmg12;"
+	var gem = parser.read_gem(text)
+	print("Parsed this:")
+	print(gem.to_string())
+	var finalgem = gem.eval(100,gem)
+	print("Evaluated to this:")
+	print(finalgem.to_string())
+
+func test_rune_parsing_2():
+	randomize()
+	var parser = class_gem_parser.new()
+	
+	var text = "(\\x 3 (x (x x))) (\\x 3 (x (x x)));"
+	var gem = parser.read_gem(text)
+	var filler_text = "dmg1;;"
+	var filler_gem = parser.read_gem(filler_text)
+	print("Parsed this:")
+	print(gem.to_string())
+	var finalgem = gem.eval(20,filler_gem)
+	print("Evaluated to this:")
+	print(finalgem.to_string())
+
+func test_spell_expressing():
+	randomize()
+	
+	var battleground = class_2dbattleground.new()
+	
+	add_child(battleground)
+	
+	var element1 = class_element.new()
+	var element2 = class_element.new()
+	
+	battleground.addElement(element1)
+	battleground.addElement(element2)
+	
+	processBattleground(battleground,10)
+	
+	var position1 = class_position.new()
+	var position2 = class_position.new()
+	
+	position1.x = 2
+	position1.y = 2
+	position2.x = 4
+	position2.y = 5
+	
+	battleground.addEffect(position1,element1)
+	battleground.addEffect(position2,element2)
+	
+	processBattleground(battleground,10)
+	
+	var graphic1 = class_graphic.new()
+	graphic1.node = get_node("test_element").duplicate()
+	graphic1.node.show()
+	
+	var graphic2 = class_graphic.new()
+	graphic2.node = get_node("test_element").duplicate()
+	graphic2.node.show()
+	
+	battleground.addEffect(graphic1,element1)
+	battleground.addEffect(graphic2,element2)
+	
+	processBattleground(battleground,10)
+	
+	var life1 = class_life.new()
+	life1.hp = 50
+	
+	var life2 = class_life.new()
+	life2.hp = 75
+	
+	battleground.addEffect(life1,element1)
+	battleground.addEffect(life2,element2)
+	
+	processBattleground(battleground,10)
+	
+	battleground.processGraphics()
+	
+	g_battleground = battleground
+	g_element1 = element1
+	g_element2 = element2
+	
+	#graphic2.node.connect("pressed",self,"test_positions_2_on_press")
+
+func test_spell_expressing_onpress():
+	var parser = class_gem_parser.new()
+	var spell = "dmg10;;"
+	var gem = parser.read_gem(spell)
+	var filler_spell = "dmg1;;"
+	var filler_gem = parser.read_gem(filler_spell)
+	var eval_spell = gem.eval(20,filler_gem)
+	
+	var spell_cast = eval_spell.express([])
+	
+	g_battleground.addEffect(spell_cast,g_element1)
+	
+	processBattleground(g_battleground,10)
+	g_battleground.processGraphics()
+
 func _ready():
 	#test_runes_1()
 	#test_positions_1()
-	test_positions_2()
+	#test_positions_2()
+	#test_rune_parsing_1()
+	#test_rune_parsing_2()
+	test_spell_expressing()

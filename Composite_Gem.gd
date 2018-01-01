@@ -3,7 +3,7 @@ extends "Gem.gd"
 var f
 var x
 
-const to_fill = 1.0
+const to_fill = 2.0
 const class_rune = preload("Rune.gd")
 
 func subst(rune, main_gem):
@@ -23,10 +23,13 @@ func eval(energy, filler_gem):
 		#print("Evaluating composite: " + self.to_string())
 		var eval_f = f.eval(energy, filler_gem)
 		var eval_x = x.eval(energy, filler_gem)
+		var eval_f_s = eval_f.to_string()
+		var eval_x_s = eval_x.to_string()
 		
 		# This is where the magic happens
 		if eval_f extends class_rune:
 			var result = eval_f.eval_rune(eval_x,energy,filler_gem)
+			var result_s = result.to_string()
 			#print("Result: " + result.to_string())
 			return result
 		else:
@@ -43,4 +46,4 @@ func maybe_fill(gem, filler_gem):
 		return gem
 
 func to_string():
-	return "("+f.to_string()+x.to_string()+")"
+	return "("+f.to_string()+" "+x.to_string()+")"

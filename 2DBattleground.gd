@@ -21,8 +21,9 @@ func add_graphic_element(graphic):
 	add_child(graphic.node)
 
 func remove_graphic_element(graphic):
-	remove_child(graphic.node)
-	graphic.node.free()
+	#remove_child(graphic.node)
+	#graphic.node.free()
+	graphic.node.queue_free()
 
 func translate_pos(x, y):
 	return Vector2(bg_start_x + cell_width*x,bg_start_y + cell_height*y)

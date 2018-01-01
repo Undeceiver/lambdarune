@@ -1,6 +1,8 @@
 extends "res://Effect.gd"
 
-var types = ["death"]
+var types = ["damage"]
+
+var damage
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -11,5 +13,7 @@ func isImmediate():
 	return true
 
 func myselfIn():
-	# Remove the element.
-	element.battleground.removeElement(element)
+	var lives = element.findEffects("life")
+	for life in lives:
+		life.hp = life.hp - damage
+		life.reeval()

@@ -4,6 +4,8 @@ extends Node
 # While it is only labels, we exploit the dynamic nature of the language to actually *expect* certain fields
 # in effects with certain types. Moreover, types should be used for this purpose, and types only created when we
 # wish to have a set of fields associated under a certain tag.
+#	- "damage": Has field "damage". Deals damage to the living being.
+#	- "death": No specific fields, it identifies the death of a living being.
 # 	- "effect_added": Has field sub_effect and sub_element, indicating what effect was added and to what element.
 #	- "effect_removed": Has field sub_effect and sub_element, indicating what effect was removed and from what element.
 # 	- "element_added": Has field element_added, indicating which element was added into the battleground.
@@ -11,7 +13,6 @@ extends Node
 #	- "graphic": Has field "node" indicating the node to draw alongside this effect.
 #	- "life": Has field "hp" indicating the hitpoints left.
 #	- "position": Has fields x and y, indicating the position of the element.
-#	- "death": No specific fields, it identifies the death of a living being.
 # var types = []
 var element
 
