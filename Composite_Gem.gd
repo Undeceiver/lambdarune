@@ -45,5 +45,25 @@ func maybe_fill(gem, filler_gem):
 	else:
 		return gem
 
+func express():
+	# Find the head and the arguments
+	var to_express = head_and_args()
+
+	# Express.
+	var head = to_express[0]
+	var args = to_express[1]
+	
+	return head.express_elemental(args)
+
+func head_and_args():
+	if f.directly_expressed():
+		return [f,[x.express()]]
+	else:
+		var parc = f.head_and_args()
+		var rf = parc[0]
+		var args = parc[1]
+		args.append(x.express())
+		return [rf,args]
+
 func to_string():
 	return "("+f.to_string()+" "+x.to_string()+")"

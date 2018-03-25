@@ -34,4 +34,4 @@ func getvarnum():
 	return var_num
 
 func to_string():	
-	return "(\\"+String(getvarnum())+"."+body.to_string()+")"
+	return "(\\"+String(getvarnum())+"("+String(efficiency_gem.efficiency)+")."+body.to_string()+")"

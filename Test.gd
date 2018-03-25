@@ -14,6 +14,7 @@ const class_graphic = preload("Effects/GraphicEffect.gd")
 const class_life = preload("Effects/LifeEffect.gd")
 
 const class_gem_parser = preload("GemParser.gd")
+const class_gem_randomizer = preload("SpellGemRandomizer.gd")
 
 var g_battleground
 var g_element1
@@ -267,12 +268,19 @@ func test_spell_expressing_onpress():
 	var filler_gem = parser.read_gem(filler_spell)
 	var eval_spell = gem.eval(20,filler_gem)
 	
-	var spell_cast = eval_spell.express([])
+	var spell_cast = eval_spell.express()
 	
 	g_battleground.addEffect(spell_cast,g_element1)
 	
 	processBattleground(g_battleground,10)
 	g_battleground.processGraphics()
+
+func test_random_runes():
+	randomize()
+	var randomizer = class_gem_randomizer.new()
+	
+	var gem = randomizer.getRandomGem(5)
+	print(gem.to_string())
 
 func _ready():
 	#test_runes_1()
@@ -280,4 +288,5 @@ func _ready():
 	#test_positions_2()
 	#test_rune_parsing_1()
 	#test_rune_parsing_2()
-	test_spell_expressing()
+	#test_spell_expressing()
+	test_random_runes()

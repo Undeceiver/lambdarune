@@ -4,9 +4,9 @@ var class_damage_effect = preload("res://Effects/DamageEffect.gd")
 
 var damage
 
-func express(args):
-	# For now, it ignores its arguments.
-	# Possible things it may do with the arguments in the future are things like having damage types.
+func express(arg):
+	# For now, it ignores its argument.
+	# Possible things it may do with the argument in the future are things like having damage types.
 	var result = class_damage_effect.new()
 	result.damage = damage
 	return result

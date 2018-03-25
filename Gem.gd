@@ -8,5 +8,13 @@ func subst(rune, main_gem):
 func eval(energy, filler_gem):
 	return self
 
+# There should only be elemental gems and composite gems left after evaluation. Find the head, find the arguments, 
+# and express them in order.
+func express():
+	return null
+
+func directlyExpressed():
+	return false
+
 func to_string():
 	return ""

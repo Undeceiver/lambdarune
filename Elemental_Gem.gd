@@ -10,9 +10,15 @@ extends 'Gem.gd'
 # INSTEAD, WHAT WE DO IS TO HAVE ELEMENTAL GEMS HAVE PARAMETERS THEMSELVES.
 
 # The arguments are effects, and returns an effect.
-# Importantly, it may check the types of the arguments and do different things depending on their types.
-func express(args):
+# Importantly, it may check the types of the arguments and do different things depending on its types.
+func express_elemental(args):
 	return null
+
+func express():
+	return express_elemental([])
+
+func directly_expressed():
+	return true
 
 func subst(rune, main_gem):
 	return self

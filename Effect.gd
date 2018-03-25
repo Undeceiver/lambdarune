@@ -13,6 +13,7 @@ extends Node
 #	- "graphic": Has field "node" indicating the node to draw alongside this effect.
 #	- "life": Has field "hp" indicating the hitpoints left.
 #	- "position": Has fields x and y, indicating the position of the element.
+#	- "turnbased": Has a function "runTurn" which runs a turn on the effect.
 # var types = []
 var element
 
