@@ -48,3 +48,7 @@ func myselfOut():
 
 func effectOut(effect):
 	pass
+
+# Distance to another position effect.
+func distance(position):
+	return sqrt((position.x - x)*(position.x - x) + (position.y - y)*(position.y - y))

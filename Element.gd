@@ -19,3 +19,11 @@ func findEffects(type):
 			result.append(effect)
 	
 	return result
+
+# Returns the first one, for when in theory there should only be one.
+func findSingleEffect(type):
+	var result = findEffects(type)
+	if result.size() == 0:
+		return null
+	else:
+		return result[0]

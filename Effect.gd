@@ -4,6 +4,7 @@ extends Node
 # While it is only labels, we exploit the dynamic nature of the language to actually *expect* certain fields
 # in effects with certain types. Moreover, types should be used for this purpose, and types only created when we
 # wish to have a set of fields associated under a certain tag.
+#	- "alignment": Has fields "factions", "allies" and "enemies", each of which are an array of strings of factions that the element belongs to, considers as allies and considers as enemies, respectively.
 #	- "damage": Has field "damage". Deals damage to the living being.
 #	- "death": No specific fields, it identifies the death of a living being.
 # 	- "effect_added": Has field sub_effect and sub_element, indicating what effect was added and to what element.
