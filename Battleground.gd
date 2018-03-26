@@ -171,10 +171,11 @@ func doAddElement(element):
 	addEffect(element_added_effect,self)
 
 func doRemoveElement(element):	
-	self.elements.erase(element)
-	var element_removed_effect = class_element_removed.new()
-	element_removed_effect.element_removed = element
-	addEffect(element_removed_effect,self)
+	if self.elements.has(element):
+		self.elements.erase(element)
+		var element_removed_effect = class_element_removed.new()
+		element_removed_effect.element_removed = element
+		addEffect(element_removed_effect,self)
 
 func findElements(effectType):
 	var result = []

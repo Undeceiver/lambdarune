@@ -15,7 +15,8 @@ func processGraphics():
 		# We only consider the first position, there should be no more than one position.
 		var position = element_pos[1][0]
 		for graphic in element.findEffects("graphic"):
-			graphic.node.set_pos(translate_pos(position.x,position.y))
+			#graphic.node.set_pos(translate_pos(position.x,position.y))
+			graphic.node.position = translate_pos(position.x,position.y)
 
 func add_graphic_element(graphic):
 	add_child(graphic.node)

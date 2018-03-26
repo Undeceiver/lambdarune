@@ -13,7 +13,7 @@ func eval(energy, filler_gem):
 func express():
 	return null
 
-func directlyExpressed():
+func directly_expressed():
 	return false
 
 func to_string():

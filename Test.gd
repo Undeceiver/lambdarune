@@ -288,5 +288,5 @@ func _ready():
 	#test_positions_2()
 	#test_rune_parsing_1()
 	#test_rune_parsing_2()
-	#test_spell_expressing()
-	test_random_runes()
+	test_spell_expressing()
+	#test_random_runes()

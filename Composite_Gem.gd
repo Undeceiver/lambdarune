@@ -27,7 +27,7 @@ func eval(energy, filler_gem):
 		var eval_x_s = eval_x.to_string()
 		
 		# This is where the magic happens
-		if eval_f extends class_rune:
+		if eval_f is class_rune:
 			var result = eval_f.eval_rune(eval_x,energy,filler_gem)
 			var result_s = result.to_string()
 			#print("Result: " + result.to_string())
@@ -40,7 +40,7 @@ func eval(energy, filler_gem):
 			return result
 
 func maybe_fill(gem, filler_gem):
-	if gem extends class_rune:
+	if gem is class_rune:
 		return filler_gem
 	else:
 		return gem

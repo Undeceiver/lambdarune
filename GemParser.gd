@@ -59,7 +59,7 @@ func read_expression(vars,expr):
 		return [rune,rest]
 	else: # It may be a composite or a single gem.
 		var first = res[1]
-		var res = read_token(vars,rest)
+		res = read_token(vars,rest)
 		rest = res[2]
 		
 		if res[0] == "none": # It was a single gem.
