@@ -5,6 +5,7 @@ extends Node
 # in effects with certain types. Moreover, types should be used for this purpose, and types only created when we
 # wish to have a set of fields associated under a certain tag.
 #	- "alignment": Has fields "factions", "allies" and "enemies", each of which are an array of strings of factions that the element belongs to, considers as allies and considers as enemies, respectively.
+#	- "animation": Has field "node" indicating the node to animate and "animation", which must be a sub-node of "node" of type animation player. When the effect is added, it is played once and then execution continues. The name of the animation to play is contained in the field "animation_name".
 #	- "damage": Has field "damage". Deals damage to the living being.
 #	- "death": No specific fields, it identifies the death of a living being.
 # 	- "effect_added": Has field sub_effect and sub_element, indicating what effect was added and to what element.

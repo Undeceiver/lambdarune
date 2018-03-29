@@ -26,6 +26,13 @@ func remove_graphic_element(graphic):
 	#graphic.node.free()
 	graphic.node.queue_free()
 
+func play_animation(animation):
+	add_child(animation.node)
+	animation.animation.play(animation.animation_name)
+	# We don't interrupt the rest of the process. We simply wait until the animation is finished to remove it, but everything keeps running meanwhile.
+	yield(animation.animation,"animation_finished")
+	animation.node.queue_free()
+
 func translate_pos(x, y):
 	return Vector2(bg_start_x + cell_width*x,bg_start_y + cell_height*y)
 

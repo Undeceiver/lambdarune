@@ -11,6 +11,7 @@ const class_element = preload("Element.gd")
 const class_position = preload("Effects/Position.gd")
 const class_movement = preload("Effects/MoveEffect.gd")
 const class_graphic = preload("Effects/GraphicEffect.gd")
+const class_animation = preload("Effects/AnimationEffect.gd")
 const class_life = preload("Effects/LifeEffect.gd")
 
 const class_gem_parser = preload("GemParser.gd")
@@ -271,6 +272,17 @@ func test_spell_expressing_onpress():
 	var spell_cast = eval_spell.express()
 	
 	g_battleground.addEffect(spell_cast,g_element1)
+	
+	var anim_node = get_node("test_element").duplicate()
+	anim_node.show()
+	var anim_anim = anim_node.get_node("test_animation_player")
+	var anim_name = "spell_effect"
+	var anim_effect = class_animation.new()
+	anim_effect.node = anim_node
+	anim_effect.animation = anim_anim
+	anim_effect.animation_name = anim_name
+	
+	g_battleground.addEffect(anim_effect,g_element1)
 	
 	processBattleground(g_battleground,10)
 	g_battleground.processGraphics()

@@ -25,3 +25,8 @@ func effectIn(effect):
 	if effect.hasType("element_removed"):
 		for subeffect in effect.element_removed.findEffects("graphic"):
 			element.remove_graphic_element(subeffect)
+	
+	# Whenever an effect with an animation is added, play its animation
+	if effect.hasType("effect_added"):
+		if effect.sub_effect.hasType("animation"):
+			element.play_animation(effect.sub_effect)
