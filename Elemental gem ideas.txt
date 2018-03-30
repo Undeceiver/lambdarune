@@ -1,8 +1,13 @@
-- Damage
-- Repeat effect
-- Delay effect
-- Lifesteal damage
-- Convert damage into healing
-- Summon
-- Move
-- Choose an element (targetting)
+- Damage (with argument, when receiving damage...)
+- Repeat effect (each effect passed as argument)
+- Delay effect (each effect passed as argument)
+- Lifesteal damage (without argument, place a buff. With argument, change sub-effects to lifesteal)
+- Convert damage into healing (without agument, place a buff. With argument, change sub-effects to change damage into healing)
+- Convert healing into damage (same)
+- Summon (and add any effects that are added as argument)
+- Move (relative, fixed) (without argument, just move. With argument, when moving, do something)
+- Choose an element (targetting) (and cast the effects on it)
+
+- Types of things (damage types, mana types, cooldown types...): Type effects, which attach a certain type to its subeffects.
+- Mana (without argument, generate mana. With argument, cast effects but only after using a certain amount of mana (and don't if no mana))
+- Cooldown (without argument, generate a cooldown. With argument, cast effects but only if there is no cooldown).

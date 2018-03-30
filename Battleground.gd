@@ -69,6 +69,10 @@ func processActions():
 	
 	in_process = false
 
+func processAllActions():
+	while next_actions.size() > 0:
+		processActions()
+
 func getEffectListeners(effect):
 	if effect.element == self:
 		var result = []

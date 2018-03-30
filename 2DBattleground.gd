@@ -41,3 +41,4 @@ func _ready():
 	# Initialization here
 	var effect = class_2dbg_effect.new()
 	addEffect(effect,self)
+	processAllActions()

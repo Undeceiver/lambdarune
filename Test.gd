@@ -14,12 +14,16 @@ const class_graphic = preload("Effects/GraphicEffect.gd")
 const class_animation = preload("Effects/AnimationEffect.gd")
 const class_life = preload("Effects/LifeEffect.gd")
 
+const class_1on1_scenario = preload("Scenarios/OneOnOneScenario.gd")
+const class_battle = preload("Battle.gd")
+
 const class_gem_parser = preload("GemParser.gd")
 const class_gem_randomizer = preload("SpellGemRandomizer.gd")
 
 var g_battleground
 var g_element1
 var g_element2
+var g_battle
 
 func test_runes_1():
 	var rune = class_rune.new()
@@ -284,8 +288,13 @@ func test_spell_expressing_onpress():
 	
 	g_battleground.addEffect(anim_effect,g_element1)
 	
-	processBattleground(g_battleground,10)
-	g_battleground.processGraphics()
+	if g_battle == null:
+	#processBattleground(g_battleground,10)
+		g_battleground.processAllActions()
+		g_battleground.processGraphics()
+	else:
+		g_battle.processBattle()
+		g_battleground.processGraphics()
 
 func test_random_runes():
 	randomize()
@@ -294,11 +303,61 @@ func test_random_runes():
 	var gem = randomizer.getRandomGem(5)
 	print(gem.to_string())
 
+func test_scenario():
+	randomize()
+	
+	var scenario = class_1on1_scenario.new()
+	
+	var battle = class_battle.new()
+	var battleground = class_2dbattleground.new()
+	
+	add_child(battle)
+	
+	var position1 = class_position.new()
+	var position2 = class_position.new()
+	
+	position1.x = 2
+	position1.y = 2
+	position2.x = 4
+	position2.y = 5
+		
+	var graphic1 = class_graphic.new()
+	graphic1.node = get_node("test_element").duplicate()
+	graphic1.node.show()
+	
+	var graphic2 = class_graphic.new()
+	graphic2.node = get_node("test_element").duplicate()
+	graphic2.node.show()
+	
+	var life1 = class_life.new()
+	life1.hp = 50
+	
+	var life2 = class_life.new()
+	life2.hp = 75
+	
+	scenario.player_effects = [position1,graphic1,life1]
+	scenario.monster_effects = [position2,graphic2,life2]
+	
+	battle.setBattleground(battleground)
+	battle.loadScenario(scenario)
+	
+	battleground.processGraphics()
+	
+	g_battle = battle
+	g_battleground = battleground
+	g_element1 = scenario.player_scenario.element
+	g_element2 = scenario.monster_scenario.element
+	
+	yield(battle,"battle_ended")
+	
+	get_tree().quit()
+
 func _ready():
 	#test_runes_1()
 	#test_positions_1()
 	#test_positions_2()
 	#test_rune_parsing_1()
 	#test_rune_parsing_2()
-	test_spell_expressing()
+	#test_spell_expressing()
 	#test_random_runes()
+	test_scenario()

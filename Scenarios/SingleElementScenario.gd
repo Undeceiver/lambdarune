@@ -1,6 +1,6 @@
 extends "res://Scenario.gd"
 
-const class_cond = preload("res://Scenarios/SingleMonsterEndCondition.gd")
+const class_cond = preload("res://Scenarios/SingleElementEndCondition.gd")
 const class_element = preload("res://Element.gd")
 
 # Effects that the monster shall have.
@@ -22,8 +22,11 @@ func _ready():
 func init(battleground):
 	element = class_element.new()
 	battleground.addElement(element)
+	battleground.processAllActions()
 	for effect in effects:
 		battleground.addEffect(effect,element)
+	
+	battleground.processAllActions()
 
 func get_conditions():
 	var cond = class_cond.new()

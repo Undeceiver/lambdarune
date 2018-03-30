@@ -20,10 +20,18 @@ func _ready():
 
 func processBattle():
 	if !ended:
-		battleground.processActions()
+		battleground.processAllActions()
 		for condition in conditions:
-			if condition.is_fulfilled():
+			if condition.is_fulfilled(battleground):
 				ended = true
 				end_condition = condition
 				emit_signal("battle_ended")
 				return
+
+func setBattleground(bg):
+	battleground = bg
+	add_child(battleground)
+
+func loadScenario(scenario):
+	scenario.init(battleground)
+	conditions = conditions + scenario.get_conditions()

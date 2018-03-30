@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 64, 64 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 
 resource_name = "spell_effect"
 length = 1.0
@@ -28,9 +28,8 @@ tracks/0/keys = {
 "values": [ Vector2( 50, 50 ), Vector2( 960, 72 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
-resource_name = "test_animation"
 length = 2.0
 loop = true
 step = 0.1
@@ -98,8 +97,8 @@ autoplay = "test_animation"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/spell_effect = SubResource( 3 )
-anims/test_animation = SubResource( 2 )
+anims/spell_effect = SubResource( 2 )
+anims/test_animation = SubResource( 3 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
