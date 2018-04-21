@@ -4,6 +4,7 @@ extends Node
 # While it is only labels, we exploit the dynamic nature of the language to actually *expect* certain fields
 # in effects with certain types. Moreover, types should be used for this purpose, and types only created when we
 # wish to have a set of fields associated under a certain tag.
+# 	- "actor": An effect that is waiting for order effects coming from the battleground to run effects on its actor. Has field "code" indicating the code of the order effects to listen to.
 #	- "alignment": Has fields "factions", "allies" and "enemies", each of which are an array of strings of factions that the element belongs to, considers as allies and considers as enemies, respectively.
 #	- "animation": Has field "node" indicating the node to animate and "animation", which must be a sub-node of "node" of type animation player. When the effect is added, it is played once and then execution continues. The name of the animation to play is contained in the field "animation_name".
 #	- "damage": Has field "damage". Deals damage to the living being.
@@ -14,6 +15,7 @@ extends Node
 #	- "element_removed": Has field element_removed, indicating which element was removed from the battleground.
 #	- "graphic": Has field "node" indicating the node to draw alongside this effect.
 #	- "life": Has field "hp" indicating the hitpoints left.
+#	- "order": Effect that contains another effect that is ordered to be produced on a particular element. Contains field "effect" indicating the sub-effect, and "code" including a text code to identify who is it ordered to.
 #	- "position": Has fields x and y, indicating the position of the element.
 #	- "turnbased": Has a function "runTurn" which runs a turn on the effect.
 # var types = []

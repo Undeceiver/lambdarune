@@ -1,6 +1,7 @@
 - Damage (with argument, when receiving damage...)
 - Repeat effect (each effect passed as argument)
 - Delay effect (each effect passed as argument)
+- Duration effect (each effect passed as argument)
 - Lifesteal damage (without argument, place a buff. With argument, change sub-effects to lifesteal)
 - Convert damage into healing (without agument, place a buff. With argument, change sub-effects to change damage into healing)
 - Convert healing into damage (same)
@@ -11,3 +12,7 @@
 - Types of things (damage types, mana types, cooldown types...): Type effects, which attach a certain type to its subeffects.
 - Mana (without argument, generate mana. With argument, cast effects but only after using a certain amount of mana (and don't if no mana))
 - Cooldown (without argument, generate a cooldown. With argument, cast effects but only if there is no cooldown).
+
+- Remove effects.
+- Immune to effects.
+- Change effects of certain types: Need to be more specific. How am I going to do this?

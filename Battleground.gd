@@ -114,7 +114,7 @@ func combinePermission(prev,new):
 			return class_effect.FORCE_ALLOW
 		elif new == class_effect.FORCE_DENY:
 			return class_effect.FORCE_DENY
-		else:
+		else: 
 			return class_effect.DENY
 	elif prev == class_effect.FORCE_ALLOW:
 		return class_effect.FORCE_ALLOW

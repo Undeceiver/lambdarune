@@ -2,7 +2,7 @@ extends "res://Scenario.gd"
 
 const class_single = preload("res://Scenarios/SingleElementScenario.gd")
 
-# Effects that the monster shall have.
+# Effects that the elements shall have.
 var player_effects
 var monster_effects
 
