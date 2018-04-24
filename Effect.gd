@@ -15,6 +15,8 @@ extends Node
 #	- "element_removed": Has field element_removed, indicating which element was removed from the battleground.
 #	- "graphic": Has field "node" indicating the node to draw alongside this effect.
 #	- "life": Has field "hp" indicating the hitpoints left.
+#	- "multieffect": Simply an effect used to pack several effects. Has field "effects" with obvious meaning.
+#	- "ondamage": When receiving damage, applies an effect. Has field "effect", which is an effect that is cloned and applied each time damage is received, and damage, which indicates the minimum damage to trigger the damage.
 #	- "order": Effect that contains another effect that is ordered to be produced on a particular element. Contains field "effect" indicating the sub-effect, and "code" including a text code to identify who is it ordered to.
 #	- "position": Has fields x and y, indicating the position of the element.
 #	- "turnbased": Has a function "runTurn" which runs a turn on the effect.
@@ -64,3 +66,11 @@ func reeval():
 
 func hasType(type):
 	return self.types.has(type)
+
+func clone():
+	var eff = duplicate()
+	eff.cloneFields(self)
+	return eff
+
+func cloneFields(other):
+	pass

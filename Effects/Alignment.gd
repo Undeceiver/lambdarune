@@ -25,3 +25,8 @@ func isEnemy(element):
 					return true
 	
 	return false
+
+func cloneFields(other):
+	factions = other.factions.duplicate()
+	allies = other.factions.duplicate()
+	enemies = other.factions.duplicate()

@@ -13,3 +13,6 @@ func effectIn(effect):
 	if effect.hasType("order"):
 		if effect.code == self.code:
 			element.battleground.addEffect(effect.effect,element)
+
+func cloneFields(other):
+	code = other.code

@@ -17,3 +17,10 @@ func _ready():
 #	# Update game logic here.
 #	pass
 
+func isImmediate():
+	return true
+
+func cloneFields(other):
+	node = other.node
+	animation = other.animation
+	animation_name = other.animation_name

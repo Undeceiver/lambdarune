@@ -12,3 +12,7 @@ func _ready():
 
 func isImmediate():
 	return true
+
+func cloneFields(other):
+	effect = other.effect.clone()
+	code = other.code

@@ -18,3 +18,7 @@ func _ready():
 
 func isImmediate():
 	return true
+
+func cloneFields(other):
+	sub_effect = other.sub_effect
+	sub_element = other.sub_element

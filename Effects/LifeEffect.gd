@@ -17,3 +17,6 @@ func reeval():
 		# Die
 		var death = class_death.new()
 		element.battleground.addEffect(death,element)
+
+func cloneFields(other):
+	hp = other.hp

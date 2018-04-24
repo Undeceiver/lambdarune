@@ -1,8 +1,7 @@
 extends "res://Effect.gd"
 
-var types = ["damage"]
-
-var damage
+var types = ["multieffect"]
+var effects
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -13,10 +12,9 @@ func isImmediate():
 	return true
 
 func myselfIn():
-	var lives = element.findEffects("life")
-	for life in lives:
-		life.hp = life.hp - damage
-		life.reeval()
-
+	for effect in effects:
+		element.battleground.addEffect(effect,element)
 func cloneFields(other):
-	damage = other.damage
+	effects = []
+	for effect in other.effects:
+		effects.append(effect.clone())

@@ -16,6 +16,13 @@ var attack_range
 var damage
 var movement_speed
 
+func cloneFields(other):
+	.cloneFields(other)
+	vision_range = other.vision_range
+	attack_range = other.attack_range
+	damage = other.damage
+	movement_speed = other.movement_speed
+
 # Return null if no target, or an element.
 func findTarget():
 	var alignments = element.findEffects("alignment")

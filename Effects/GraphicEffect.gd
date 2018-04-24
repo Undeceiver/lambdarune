@@ -9,3 +9,5 @@ func _ready():
 	# Initialization here
 	pass
 
+func cloneFields(other):
+	node = other.node.duplicate()

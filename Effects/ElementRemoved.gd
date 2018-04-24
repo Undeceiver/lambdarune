@@ -11,3 +11,6 @@ func _ready():
 
 func isImmediate():
 	return true
+
+func cloneFields(other):
+	element_removed = other.element_removed

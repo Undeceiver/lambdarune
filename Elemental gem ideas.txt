@@ -7,6 +7,7 @@
 - Convert healing into damage (same)
 - Summon (and add any effects that are added as argument)
 - Move (relative, fixed) (without argument, just move. With argument, when moving, do something)
+- Speed / acceleration
 - Choose an element (targetting) (and cast the effects on it)
 
 - Types of things (damage types, mana types, cooldown types...): Type effects, which attach a certain type to its subeffects.

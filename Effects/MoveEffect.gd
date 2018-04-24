@@ -35,3 +35,7 @@ func myselfIn():
 		position.x = x
 		position.y = y
 		position.reeval()
+
+func cloneFields(other):
+	x = other.x
+	y = other.y
