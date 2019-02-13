@@ -17,7 +17,7 @@ func effectIn(effect):
 		for subeffect in effect.element_added.findEffects("graphic"):
 			element.add_graphic_element(subeffect)
 	
-	# Whenever a graphic effect is removed, or a node with graphic effects, remove the node from the battleground.
+	# Whenever a graphic effect is removed,  or a node with graphic effects, remove the node from the battleground.
 	if effect.hasType("effect_removed"):
 		if effect.sub_effect.hasType("graphic"):
 			element.remove_graphic_element(effect.sub_effect)
@@ -29,4 +29,4 @@ func effectIn(effect):
 	# Whenever an effect with an animation is added, play its animation
 	if effect.hasType("effect_added"):
 		if effect.sub_effect.hasType("animation"):
-			element.play_animation(effect.sub_effect)
+			element.play_animation(effect.sub_effect,effect.sub_element)

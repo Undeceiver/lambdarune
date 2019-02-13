@@ -22,6 +22,9 @@ const class_spell_input = preload("SpellInput.gd")
 const class_gem_parser = preload("GemParser.gd")
 const class_gem_randomizer = preload("SpellGemRandomizer.gd")
 
+const class_pertype_decorator = preload("PerTypeEffectDecorator.gd")
+const class_damage_decorator = preload("Decorators/DamageDecorator.gd")
+
 var g_battleground
 var g_element1
 var g_element2
@@ -396,16 +399,21 @@ func test_scenario_2():
 	var filler_spell = "dmg1;;"
 	var filler_gem = parser.read_gem(filler_spell)
 	var eval_spell = gem.eval(20,filler_gem)
+	var decorator = class_pertype_decorator.new()
+	var dmg_decorator = class_damage_decorator.new()
+	decorator.decorators = {"damage":dmg_decorator}
 	
 	input.code = "player1"
 	input.spells = {"test_action":eval_spell}
-	input.battle = battle
+	input.battle = battle	
 	
 	add_child(input)
 	
 	scenario.player_effects = [position1,graphic1,life1,actor]
 	scenario.monster_effects = [position2,graphic2,life2]
 	
+	battleground.decorator = decorator
+	battleground.decorator_args = {}
 	battle.setBattleground(battleground)
 	battle.loadScenario(scenario)
 	

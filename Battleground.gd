@@ -14,6 +14,9 @@ var next_actions = []
 var in_process = false
 var actions setget ,getActions
 
+var decorator
+var decorator_args = {}
+
 enum ActionType {INFORM_ADD_EFFECT, INFORM_REMOVE_EFFECT, ADD_EFFECT, REMOVE_EFFECT, ADD_ELEMENT, REMOVE_ELEMENT}
 
 func _ready():
@@ -137,6 +140,11 @@ func doAddEffect(effect):
 	if !(effect.isImmediate()):
 		effect.element.effects.append(effect)
 	
+	# Decorations
+	var decoration = decorator.decorate(effect,decorator_args)
+	if decoration != null:
+		addEffect(decoration,effect.element)
+	
 	# Only if it is on an element and not the battleground itself
 	if effect.element != self:
 		var effect_added_effect = class_effect_added.new()
@@ -168,7 +176,7 @@ func doRemoveEffect(effect):
 	informRemoveEffect(effect)
 
 func doAddElement(element):
-	# Note: Maybe we would like to let effects deny the creation of an element.
+	# Note: Maybe we would like to let effects deny the creation of an element.	
 	self.elements.append(element)
 	var element_added_effect = class_new_element.new()
 	element_added_effect.element_added = element

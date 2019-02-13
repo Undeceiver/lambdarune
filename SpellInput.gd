@@ -25,7 +25,7 @@ func _unhandled_input(event):
 			wrapper.effect = effect
 			wrapper.code = code
 			to_cast = wrapper
-	
+			
 	# This should probably be changed in the future, when turn system is implemented.
 	if event.is_action_pressed("end_turn") && to_cast != null:
 		battle.battleground.addEffect(to_cast,battle.battleground)

@@ -21,6 +21,7 @@ func _ready():
 func processBattle():
 	if !ended:
 		battleground.processAllActions()
+		#battleground.processGraphics()
 		for condition in conditions:
 			if condition.is_fulfilled(battleground):
 				ended = true

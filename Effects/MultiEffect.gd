@@ -14,6 +14,7 @@ func isImmediate():
 func myselfIn():
 	for effect in effects:
 		element.battleground.addEffect(effect,element)
+
 func cloneFields(other):
 	effects = []
 	for effect in other.effects:

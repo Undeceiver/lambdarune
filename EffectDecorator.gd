@@ -4,8 +4,9 @@ extends Node
 # So, for example, a damage effect can be decorated with different animations like explosions happening on the character, and so on.
 # A targetting effect can be decorated with a projectile, which looks at the type of its targetted effect to decide what type of projectile to draw.
 # And the list keeps on going.
-# The way that it works is that it takes an effect, and returns a new effect, which usually will be a multieffect including the original effect
-# and added aesthetic effects.
+# The way that it works is that it takes an effect, and returns a new effect, which usually will be a multieffect including 
+# added aesthetic effects, but NOT th original effect. This is to prevent infinite recursion (decorating the effect over and over without ever actually applying it).
+# If it returns null, it means no decorations are necessary. This is important.
 # This is to be used at the outer-most level of gem expressing. The ultimate gem being expressed, after being expressed, is decorated.
 # To allow for fine-tuning, rather than including things like randomness of choice within the decorator itself, a dictionary of arguments can be passed
 # to the decorate function, containing any kind of ad-hoc decoration parameters.
@@ -17,5 +18,5 @@ func _ready():
 	# Initialization here
 	pass
 
-func decorate(effect,parameters):
-	return effect
+func decorate(effect,parameters):	
+	return null
