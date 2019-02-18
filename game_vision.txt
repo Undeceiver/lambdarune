@@ -1,0 +1,7 @@
+-Game consists on one to one scenarios with bosses. Bosses may summon stuff or not, but it all starts as a one on one.
+-Scenarios may be pre-set or randomized. Each boss is a single element (possibly with built-in effects) and a set of gems (spells) that they may play. This implies a need for some sort of boss-decision-AI. (Different from individual summons AIs, which the boss may actually also possess).
+-Game mode can end up being something like choose a specific boss, choose a random boss with a certain power, something more story-like or just keep fighting random bosses of increasing power. For random boss generation we need a randomizing of their built-in effects. Probably gem randomizing is not the best for this. Something simpler is needed. More high level.
+-Turn-based, of course.
+-Player can play one gem per turn (spell).
+-When going into the scenario, the player has a spell repertoire. A set of available spells to cast. An entry of the spell repertoire (a spell) consists of a gem indicating the effect, and also parameters indicating whether it is consumed, cooldown, and so on. These are basically higher-level parameters so it makes sense to have them aside of the effects system. Cooldowns at the effects level may also exist, but these are a more dynamic and a different thing.
+-Spell repertoires may be randomized or built by the player before entering the scenario. For this second mode, a repertoire-management mode will be necessary.

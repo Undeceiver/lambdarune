@@ -18,6 +18,10 @@ const class_actor = preload("Effects/ActorEffect.gd")
 const class_1on1_scenario = preload("Scenarios/OneOnOneScenario.gd")
 const class_battle = preload("Battle.gd")
 const class_spell_input = preload("SpellInput.gd")
+const class_spell_repertoire = preload("SpellRepertoire.gd")
+const class_spell = preload("Spell.gd")
+const class_decision_ai = preload("DecisionAI.gd")
+const class_playervsaibattle = preload("PlayerVsAIBattle.gd")
 
 const class_gem_parser = preload("GemParser.gd")
 const class_gem_randomizer = preload("SpellGemRandomizer.gd")
@@ -389,13 +393,16 @@ func test_scenario_2():
 	var life2 = class_life.new()
 	life2.hp = 75
 	
-	var actor = class_actor.new()
-	actor.code = "player1"
+	#var actor = class_actor.new()
+	#actor.code = "player1"
 	
-	var input = class_spell_input.new()
+	#var input = class_spell_input.new()
+	var repertoire = class_spell_repertoire.new()
 	var parser = class_gem_parser.new()
-	var spell = "dmg10;;"
+	var spell = "dmg12;;"
 	var gem = parser.read_gem(spell)
+	#var cooldown = 0
+	#var repeatable = true
 	var filler_spell = "dmg1;;"
 	var filler_gem = parser.read_gem(filler_spell)
 	var eval_spell = gem.eval(20,filler_gem)
@@ -403,9 +410,20 @@ func test_scenario_2():
 	var dmg_decorator = class_damage_decorator.new()
 	decorator.decorators = {"damage":dmg_decorator}
 	
-	input.code = "player1"
-	input.spells = {"test_action":eval_spell}
-	input.battle = battle	
+	#input.code = "player1"
+	#input.spells = {"test_action":[eval_spell,cooldown,0,repeatable,false]}
+	#input.battle = battle
+	var spell1 = class_spell.new()
+	spell1.gem = eval_spell
+	spell1.cooldown = 0
+	spell1.repeatable = true
+	
+	repertoire.spells = {"test_action":spell1}
+	repertoire.battle = battle
+	print(repertoire.to_string())
+	var inputactor = repertoire.createSpellInput()
+	var input = inputactor[0]	
+	var actor = inputactor[1]
 	
 	add_child(input)
 	
@@ -417,7 +435,8 @@ func test_scenario_2():
 	battle.setBattleground(battleground)
 	battle.loadScenario(scenario)
 	
-	battleground.processGraphics()
+	battle.addPeriodicCall(battleground,"processGraphics")
+	battle.processBattle()
 	
 	g_battle = battle
 	g_battleground = battleground
@@ -426,7 +445,121 @@ func test_scenario_2():
 	
 	yield(battle,"battle_ended")
 	
-	get_tree().quit()	
+	get_tree().quit()
+
+func test_versus():
+	randomize()
+	
+	var scenario = class_1on1_scenario.new()
+	
+	var battle = class_playervsaibattle.new()
+	var battleground = class_2dbattleground.new()
+	
+	add_child(battle)
+	
+	var position1 = class_position.new()
+	var position2 = class_position.new()
+	
+	position1.x = 2
+	position1.y = 2
+	position2.x = 4
+	position2.y = 5
+		
+	var graphic1 = class_graphic.new()
+	graphic1.node = get_node("test_element").duplicate()
+	graphic1.node.show()
+	
+	var graphic2 = class_graphic.new()
+	graphic2.node = get_node("test_element").duplicate()
+	graphic2.node.show()
+	
+	var life1 = class_life.new()
+	life1.hp = 50
+	
+	var life2 = class_life.new()
+	life2.hp = 75
+	
+	#var actor = class_actor.new()
+	#actor.code = "player1"
+	
+	#var input = class_spell_input.new()
+	var repertoire_player = class_spell_repertoire.new()
+	var repertoire_ai = class_spell_repertoire.new()
+	var parser = class_gem_parser.new()
+	var spell_player = "dmg12;;"
+	var gem_player = parser.read_gem(spell_player)
+	var spell_ai = "dmg17;;"
+	var gem_ai = parser.read_gem(spell_ai)
+	var spell_ai_2 = "dmg30;;"
+	var gem_ai_2 = parser.read_gem(spell_ai_2)
+	#var cooldown = 0
+	#var repeatable = true
+	var filler_spell = "dmg1;;"
+	var filler_gem = parser.read_gem(filler_spell)
+	var eval_spell_player = gem_player.eval(20,filler_gem)
+	var eval_spell_ai = gem_ai.eval(20,filler_gem)
+	var eval_spell_ai_2 = gem_ai_2.eval(20,filler_gem)
+	var decorator = class_pertype_decorator.new()
+	var dmg_decorator = class_damage_decorator.new()
+	decorator.decorators = {"damage":dmg_decorator}
+	
+	#input.code = "player1"
+	#input.spells = {"test_action":[eval_spell,cooldown,0,repeatable,false]}
+	#input.battle = battle
+	var spell1 = class_spell.new()
+	spell1.gem = eval_spell_player
+	spell1.cooldown = 0
+	spell1.repeatable = true
+	
+	var spell2 = class_spell.new()
+	spell2.gem = eval_spell_ai
+	spell2.cooldown = 1
+	spell2.repeatable = true
+	
+	var spell3 = class_spell.new()
+	spell3.gem = eval_spell_ai_2
+	spell3.cooldown = 0
+	spell3.repeatable = false
+	
+	repertoire_player.spells = {"test_action":spell1}
+	repertoire_player.battle = battle
+	print("Player repertoire:")
+	print(repertoire_player.to_string())
+	repertoire_ai.spells = {"test_action":spell2,"no_action":spell3}
+	repertoire_ai.battle = battle
+	print("AI repertoire:")
+	print(repertoire_ai.to_string())
+	var inputactor_player = repertoire_player.createSpellInput()
+	var input_player = inputactor_player[0]	
+	var actor_player = inputactor_player[1]
+	var inputactor_ai = repertoire_ai.createSpellInput()
+	var input_ai = inputactor_ai[0]
+	var actor_ai = inputactor_ai[1]	
+	var decision_ai = class_decision_ai.new()
+	decision_ai.repertoire = repertoire_ai
+	decision_ai.spell_input = input_ai	
+	battle.setPlayerInput(input_player)
+	battle.setDecisionAI(decision_ai)
+	
+	scenario.player_effects = [position1,graphic1,life1,actor_player]
+	scenario.monster_effects = [position2,graphic2,life2,actor_ai]
+	
+	battleground.decorator = decorator
+	battleground.decorator_args = {}
+	battle.setBattleground(battleground)
+	battle.loadScenario(scenario)
+	
+	battle.addPeriodicCall(battleground,"processGraphics")
+	battle.processBattle()
+	
+	#g_battle = battle
+	#g_battleground = battleground
+	#g_element1 = scenario.player_scenario.element
+	#g_element2 = scenario.monster_scenario.element
+	
+	yield(battle,"battle_ended")
+	
+	get_tree().quit()
 
 func _ready():
 	#test_runes_1()
@@ -437,4 +570,5 @@ func _ready():
 	#test_spell_expressing()
 	#test_random_runes()
 	#test_scenario()
-	test_scenario_2()
+	#test_scenario_2()
+	test_versus()

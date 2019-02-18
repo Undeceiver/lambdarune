@@ -8,6 +8,9 @@ var end_condition
 var battleground
 var conditions = []
 
+# Things that are meant to be called each time the battle is processed. Pairs of node and function name. No arguments allowed.
+var periodic_calls = []
+
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -21,7 +24,9 @@ func _ready():
 func processBattle():
 	if !ended:
 		battleground.processAllActions()
-		#battleground.processGraphics()
+		for call in periodic_calls:
+			call[0].call(call[1])
+		
 		for condition in conditions:
 			if condition.is_fulfilled(battleground):
 				ended = true
@@ -36,3 +41,6 @@ func setBattleground(bg):
 func loadScenario(scenario):
 	scenario.init(battleground)
 	conditions = conditions + scenario.get_conditions()
+
+func addPeriodicCall(node,func_name):
+	periodic_calls.append([node,func_name])
