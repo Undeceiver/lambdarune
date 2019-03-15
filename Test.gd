@@ -25,6 +25,7 @@ const class_playervsaibattle = preload("PlayerVsAIBattle.gd")
 
 const class_gem_parser = preload("GemParser.gd")
 const class_gem_randomizer = preload("SpellGemRandomizer.gd")
+const class_repertoire_randomizer = preload("SpellRepertoireRandomizer.gd")
 
 const class_pertype_decorator = preload("PerTypeEffectDecorator.gd")
 const class_damage_decorator = preload("Decorators/DamageDecorator.gd")
@@ -522,17 +523,17 @@ func test_versus():
 	spell3.repeatable = false
 	
 	repertoire_player.spells = {"test_action":spell1}
-	repertoire_player.battle = battle
+	#repertoire_player.battle = battle
 	print("Player repertoire:")
 	print(repertoire_player.to_string())
 	repertoire_ai.spells = {"test_action":spell2,"no_action":spell3}
-	repertoire_ai.battle = battle
+	#repertoire_ai.battle = battle
 	print("AI repertoire:")
 	print(repertoire_ai.to_string())
-	var inputactor_player = repertoire_player.createSpellInput()
+	var inputactor_player = repertoire_player.createSpellInput(battle)
 	var input_player = inputactor_player[0]	
 	var actor_player = inputactor_player[1]
-	var inputactor_ai = repertoire_ai.createSpellInput()
+	var inputactor_ai = repertoire_ai.createSpellInput(battle)
 	var input_ai = inputactor_ai[0]
 	var actor_ai = inputactor_ai[1]	
 	var decision_ai = class_decision_ai.new()
@@ -561,6 +562,35 @@ func test_versus():
 	
 	get_tree().quit()
 
+func test_repertoire_randomizing():
+	randomize()
+	
+	var randomizer = class_repertoire_randomizer.new()
+	
+	randomizer.ps = float(49)/float(50)
+	randomizer.avg = 50
+	randomizer.w = 0.8
+	randomizer.us = 5
+	randomizer.eavg = 100
+	randomizer.ew = 0.6
+	randomizer.eus = 5
+	randomizer.pr = 0.8
+	randomizer.pcd = 0.9
+	randomizer.pcdr = 0.2
+	randomizer.pxcd = float(3)/float(4)
+	randomizer.pxcdr = float(4*0.5)/float(3*1.5)
+	randomizer.std_power = 5
+	
+	var parser = class_gem_parser.new()
+	var filler_spell = "dmg1;;"
+	var filler_gem = parser.read_gem(filler_spell)
+	
+	var repertoire = randomizer.getRandomRepertoire(["a1","a2","a3","a4"],filler_gem)
+	
+	print("Repertoire:\n\n" + repertoire.to_string())
+	
+	#get_tree().quit()
+
 func _ready():
 	#test_runes_1()
 	#test_positions_1()
@@ -571,4 +601,5 @@ func _ready():
 	#test_random_runes()
 	#test_scenario()
 	#test_scenario_2()
-	test_versus()
+	#test_versus()
+	test_repertoire_randomizing()

@@ -5,7 +5,6 @@ const class_spellinput = preload("res://SpellInput.gd")
 
 # Map from actions to spells.
 var spells = {}
-var battle
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -18,7 +17,7 @@ func _ready():
 #	pass
 
 # Returns two values. First, the spell input object. Second, an actor effect that executes the effects from the input.
-func createSpellInput():
+func createSpellInput(battle):
 	# Create a random uuid	
 	var uuid = rand_range(0,99999999)
 	var code = String(uuid)
