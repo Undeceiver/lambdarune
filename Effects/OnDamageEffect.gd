@@ -3,7 +3,7 @@ extends "res://Effect.gd"
 var types = ["ondamage"]
 
 var damage
-var effect
+var to_do
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -12,9 +12,12 @@ func _ready():
 
 func effectIn(effect):
 	if effect.hasType("damage"):
-		if effect.damage >= damage:
-			var effect_instance = effect.clone()
+		if effect.damage <= damage:
+			var effect_instance = to_do.clone()
+			for exc in exclusions:
+				effect_instance.exclusions.append(exc)
+			effect_instance.exclusions.append(self)
 			element.battleground.addEffect(effect_instance,element)
 
 func cloneFields(other):
-	effect = other.effect.clone()
+	to_do = other.to_do.clone()

@@ -7,6 +7,7 @@ const class_composite_gem = preload("Composite_Gem.gd")
 const class_efficiency_gem = preload("Efficiency_Gem.gd")
 
 const class_2dbattleground = preload("2DBattleground.gd")
+const class_tb2dbattleground = preload("TurnBased2DBattleground.gd")
 const class_element = preload("Element.gd")
 const class_position = preload("Effects/Position.gd")
 const class_movement = preload("Effects/MoveEffect.gd")
@@ -27,7 +28,6 @@ const class_gem_parser = preload("GemParser.gd")
 const class_gem_randomizer = preload("SpellGemRandomizer.gd")
 const class_repertoire_randomizer = preload("SpellRepertoireRandomizer.gd")
 
-const class_pertype_decorator = preload("PerTypeEffectDecorator.gd")
 const class_damage_decorator = preload("Decorators/DamageDecorator.gd")
 
 var g_battleground
@@ -407,9 +407,7 @@ func test_scenario_2():
 	var filler_spell = "dmg1;;"
 	var filler_gem = parser.read_gem(filler_spell)
 	var eval_spell = gem.eval(20,filler_gem)
-	var decorator = class_pertype_decorator.new()
 	var dmg_decorator = class_damage_decorator.new()
-	decorator.decorators = {"damage":dmg_decorator}
 	
 	#input.code = "player1"
 	#input.spells = {"test_action":[eval_spell,cooldown,0,repeatable,false]}
@@ -431,8 +429,9 @@ func test_scenario_2():
 	scenario.player_effects = [position1,graphic1,life1,actor]
 	scenario.monster_effects = [position2,graphic2,life2]
 	
-	battleground.decorator = decorator
-	battleground.decorator_args = {}
+	#battleground.decorator = decorator
+	#battleground.decorator_args = {}
+	battleground.addEffect(dmg_decorator,battleground)
 	battle.setBattleground(battleground)
 	battle.loadScenario(scenario)
 	
@@ -454,7 +453,8 @@ func test_versus():
 	var scenario = class_1on1_scenario.new()
 	
 	var battle = class_playervsaibattle.new()
-	var battleground = class_2dbattleground.new()
+	#var battleground = class_2dbattleground.new()
+	var battleground = class_tb2dbattleground.new()
 	
 	add_child(battle)
 	
@@ -489,9 +489,10 @@ func test_versus():
 	var parser = class_gem_parser.new()
 	var spell_player = "dmg12;;"
 	var gem_player = parser.read_gem(spell_player)
-	var spell_ai = "dmg17;;"
+	var spell_ai = "dmg3;;"
 	var gem_ai = parser.read_gem(spell_ai)
-	var spell_ai_2 = "dmg30;;"
+	#var spell_ai_2 = "dmg30;;"
+	var spell_ai_2 = "(dmg4 dmg5;);"
 	var gem_ai_2 = parser.read_gem(spell_ai_2)
 	#var cooldown = 0
 	#var repeatable = true
@@ -500,9 +501,7 @@ func test_versus():
 	var eval_spell_player = gem_player.eval(20,filler_gem)
 	var eval_spell_ai = gem_ai.eval(20,filler_gem)
 	var eval_spell_ai_2 = gem_ai_2.eval(20,filler_gem)
-	var decorator = class_pertype_decorator.new()
 	var dmg_decorator = class_damage_decorator.new()
-	decorator.decorators = {"damage":dmg_decorator}
 	
 	#input.code = "player1"
 	#input.spells = {"test_action":[eval_spell,cooldown,0,repeatable,false]}
@@ -525,11 +524,11 @@ func test_versus():
 	repertoire_player.spells = {"test_action":spell1}
 	#repertoire_player.battle = battle
 	print("Player repertoire:")
-	print(repertoire_player.to_string())
+	print(repertoire_player.to_text())
 	repertoire_ai.spells = {"test_action":spell2,"no_action":spell3}
 	#repertoire_ai.battle = battle
 	print("AI repertoire:")
-	print(repertoire_ai.to_string())
+	print(repertoire_ai.to_text())
 	var inputactor_player = repertoire_player.createSpellInput(battle)
 	var input_player = inputactor_player[0]	
 	var actor_player = inputactor_player[1]
@@ -545,8 +544,9 @@ func test_versus():
 	scenario.player_effects = [position1,graphic1,life1,actor_player]
 	scenario.monster_effects = [position2,graphic2,life2,actor_ai]
 	
-	battleground.decorator = decorator
-	battleground.decorator_args = {}
+	#battleground.decorator = decorator
+	#battleground.decorator_args = {}
+	battleground.addEffect(dmg_decorator,battleground)
 	battle.setBattleground(battleground)
 	battle.loadScenario(scenario)
 	
@@ -587,7 +587,7 @@ func test_repertoire_randomizing():
 	
 	var repertoire = randomizer.getRandomRepertoire(["a1","a2","a3","a4"],filler_gem)
 	
-	print("Repertoire:\n\n" + repertoire.to_string())
+	print("Repertoire:\n\n" + repertoire.to_text())
 	
 	#get_tree().quit()
 
@@ -601,5 +601,5 @@ func _ready():
 	#test_random_runes()
 	#test_scenario()
 	#test_scenario_2()
-	#test_versus()
-	test_repertoire_randomizing()
+	test_versus()
+	#test_repertoire_randomizing()

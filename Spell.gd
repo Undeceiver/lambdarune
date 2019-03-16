@@ -27,4 +27,15 @@ func to_string():
 	else:
 		rep = "non-repeatable"
 	
-	return gem.to_string() + "[" + rep + " | " + String(cooldown) + " turns cd]"
+	return gem.to_string() + " [" + rep + " | " + String(cooldown) + " turns cd]"
+
+func to_text():
+	var rep
+	if repeatable:
+		rep = "Repeatable"
+		return gem.to_text() + "\n" + rep + ". " + String(cooldown) + " turns cooldown."
+	else:
+		rep = "Non-repeatable"
+		return gem.to_text() + "\n" + rep + ". "
+	
+	

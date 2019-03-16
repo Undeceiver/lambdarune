@@ -29,3 +29,10 @@ func directly_expressed():
 
 func to_string():
 	return ""
+
+func to_text():
+	return "Unknown gem"
+
+# Utilities for the to_text functionn
+func indent_all(text):
+	return text.replace("\n","\n\t")

@@ -5,7 +5,7 @@ extends "res://Effect.gd"
 # rather than simply polling constantly.
 # This is essential, for example, for graphic drawing.
 # The effect itself is not reacted to, only to its addition and removal, but this allows us to keep track of what
-# we should we pay attention to.
+# we should pay attention to.
 
 var types = ["effect_added"]
 var sub_effect

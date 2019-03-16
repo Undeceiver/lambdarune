@@ -43,3 +43,11 @@ func to_string():
 		result = result + action + ": " + spell.to_string() + "\n"
 	
 	return result
+
+func to_text():
+	var result = ""
+	for action in spells:
+		var spell = spells[action]
+		result = result + action + ": " + spell.to_text() + "\n"
+	
+	return result

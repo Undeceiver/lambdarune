@@ -25,3 +25,9 @@ func subst(rune, main_gem):
 
 func to_string():
 	return "E"
+
+func to_text():
+	return to_text_elemental([])
+
+func to_text_elemental(args):
+	return "Unknown elemental gem"

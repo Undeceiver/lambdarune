@@ -7,7 +7,7 @@ var bg_start_x = 0
 var bg_start_y = 0
 var cell_width = 50
 var cell_height = 50
-var battleground = self
+#var battleground = self
 
 # Positions are stored as effects in the elements, so there's no need to keep track of them here.
 func processGraphics():

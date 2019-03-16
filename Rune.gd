@@ -35,3 +35,6 @@ func getvarnum():
 
 func to_string():	
 	return "(\\"+String(getvarnum())+"("+String(efficiency_gem.efficiency)+")."+body.to_string()+")"
+
+func to_text():
+	return "Rune. This is meant for fully evaluated gems."

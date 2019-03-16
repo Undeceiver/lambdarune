@@ -1,7 +1,7 @@
 extends Node
 
-const class_gem_parser = preload("GemParser.gd")
 const class_order_effect = preload("Effects/OrderEffect.gd")
+const class_endturn_effect = preload("Effects/EndTurnEffect.gd")
 
 # Translates actions into effects to be passed to actors.
 # Code indicates the code that the actor will use to identify that the order is directed at it.
@@ -53,6 +53,12 @@ func endTurn():
 		spells[action] = [gem,cooldown,cur_cooldown,repeatable,already]
 		
 		battle.battleground.addEffect(effect,battle.battleground)
+		
+		battle.processBattle()
+		
+		var endturn = class_endturn_effect.new()
+		battle.battleground.addEffect(endturn,battle.battleground)
+		
 		battle.processBattle()
 		
 		to_cast = null

@@ -65,5 +65,25 @@ func head_and_args():
 		args.append(x.express())
 		return [rf,args]
 
+func to_text():
+	# Find the head and the arguments
+	var to_txt = head_and_args_text()
+	
+	# To text
+	var head = to_txt[0]
+	var args = to_txt[1]
+	
+	return head.to_text_elemental(args)
+
+func head_and_args_text():
+	if f.directly_expressed():
+		return [f,[x.to_text()]]
+	else:
+		var parc = f.head_and_args_text()
+		var rf = parc[0]
+		var args = parc[1]
+		args.append(x.to_text())
+		return [rf,args]
+
 func to_string():
 	return "("+f.to_string()+" "+x.to_string()+")"

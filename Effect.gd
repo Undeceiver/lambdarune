@@ -9,10 +9,12 @@ extends Node
 #	- "animation": Has field "node" indicating the node to animate and "animation", which must be a sub-node of "node" of type animation player. When the effect is added, it is played once and then execution continues. The name of the animation to play is contained in the field "animation_name".
 #	- "damage": Has field "damage". Deals damage to the living being.
 #	- "death": No specific fields, it identifies the death of a living being.
+#	- "decorator": Effect decorators are effects themselves.
 # 	- "effect_added": Has field sub_effect and sub_element, indicating what effect was added and to what element.
 #	- "effect_removed": Has field sub_effect and sub_element, indicating what effect was removed and from what element.
 # 	- "element_added": Has field element_added, indicating which element was added into the battleground.
 #	- "element_removed": Has field element_removed, indicating which element was removed from the battleground.
+#	- "end_turn": Sent by controllers to indicate to the battleground that a turn has ended. The turn-based battleground finds turnbased effects and runs a turn on them.
 #	- "graphic": Has field "node" indicating the node to draw alongside this effect.
 #	- "life": Has field "hp" indicating the hitpoints left.
 #	- "multieffect": Simply an effect used to pack several effects. Has field "effects" with obvious meaning.
@@ -22,6 +24,7 @@ extends Node
 #	- "turnbased": Has a function "runTurn" which runs a turn on the effect.
 # var types = []
 var element
+var exclusions = []
 
 enum Permission {ALLOW, DENY, FORCE_ALLOW, FORCE_DENY}
 

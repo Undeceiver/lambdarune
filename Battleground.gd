@@ -1,4 +1,4 @@
-extends Node
+extends "res://Element.gd"
 
 const class_effect = preload("Effect.gd")
 const class_new_element = preload("Effects/NewElement.gd")
@@ -7,21 +7,19 @@ const class_effect_added = preload("Effects/SubEffectAdded.gd")
 const class_effect_removed = preload("Effects/SubEffectRemoved.gd")
 
 var elements = []
-var effects = []
+#var effects = []
 
 var cur_actions = []
 var next_actions = []
 var in_process = false
 var actions setget ,getActions
 
-var decorator
-var decorator_args = {}
-
 enum ActionType {INFORM_ADD_EFFECT, INFORM_REMOVE_EFFECT, ADD_EFFECT, REMOVE_EFFECT, ADD_ELEMENT, REMOVE_ELEMENT}
 
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
+	battleground = self
 	pass
 
 func informAddEffect(effect):
@@ -80,15 +78,23 @@ func getEffectListeners(effect):
 	if effect.element == self:
 		var result = []
 		for other in self.effects:
-			result.append(other)
+			if !(other in effect.exclusions):
+				result.append(other)
 		
 		for element in self.elements:
-			for effect in element.effects:
-				result.append(effect)
+			for other in element.effects:
+				if !(other in effect.exclusions):
+					result.append(other)
+		
 		
 		return result
 	else:
-		return effect.element.effects
+		var result = []
+		for other in effect.element.effects:
+			if !(other in effect.exclusions):
+				result.append(other)
+		
+		return result
 
 func doInformAddEffect(effect):
 	var listeners = getEffectListeners(effect)
@@ -141,9 +147,9 @@ func doAddEffect(effect):
 		effect.element.effects.append(effect)
 	
 	# Decorations
-	var decoration = decorator.decorate(effect,decorator_args)
-	if decoration != null:
-		addEffect(decoration,effect.element)
+	#var decoration = decorator.decorate(effect,decorator_args)
+	#if decoration != null:
+	#	addEffect(decoration,effect.element)
 	
 	# Only if it is on an element and not the battleground itself
 	if effect.element != self:
@@ -191,8 +197,13 @@ func doRemoveElement(element):
 
 func findElements(effectType):
 	var result = []
+	var result_effects
+	result_effects = self.findEffects(effectType)
+	if !result_effects.empty():
+		result.append([self,result_effects])
+	
 	for element in elements:
-		var result_effects = element.findEffects(effectType)
+		result_effects = element.findEffects(effectType)
 		if !result_effects.empty():
 			result.append([element,result_effects])
 	

@@ -13,12 +13,25 @@ func express_elemental(args):
 		result.effects = []
 		for arg in args:
 			var eff = class_ondamage_effect.new()
-			eff.effect = arg
+			eff.to_do = arg
 			eff.damage = damage
 			result.effects.append(eff)
 	else:
 		result = class_damage_effect.new()
 		result.damage = damage
+	
+	return result
+
+func to_text_elemental(args):
+	var result
+	if args.size() > 0:
+		result = "\nwhen taking " + str(damage) + " or less damage: "
+		for arg in args:
+			var sres = indent_all(arg)
+			result = result + sres
+		
+	else:
+		result = "\ntake " + str(damage) + " damage"
 	
 	return result
 
