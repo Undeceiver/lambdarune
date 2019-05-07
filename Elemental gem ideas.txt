@@ -13,7 +13,11 @@
 - Types of things (damage types, mana types, cooldown types...): Type effects, which attach a certain type to its subeffects.
 - Mana (without argument, generate mana. With argument, cast effects but only after using a certain amount of mana (and don't if no mana))
 - Cooldown (without argument, generate a cooldown. With argument, cast effects but only if there is no cooldown).
+- Cumulate information that is released through another effect.
 
 - Remove effects.
 - Immune to effects.
-- Change effects of certain types: Need to be more specific. How am I going to do this?
+- Change effects of certain types: Super-types of effects that essentially are interfaces indicating whether that effect is susceptible to a modifying effect. (e.g. magnitude: Means it has a main magnitude that can be, for example, duplicated).
+
+- Until effects (how to identify the effects that trigger it?)
+- Whenever effects (...)

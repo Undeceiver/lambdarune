@@ -18,9 +18,9 @@ const prob_base = 0.2
 # Probability of being a true elemental, compared to each of the available variables.
 const weight_true_elemental = 1.5
 # Composite decay
-const composite_decay = 0.85
+const composite_decay = 0.7
 # Rune decay
-const rune_decay = 0.8
+const rune_decay = 0.55
 
 # Returns three values: [prob of rune,prob of composite,prob of elemental],
 # adding up to 1.
@@ -32,9 +32,16 @@ func getGemTypeProbs(power):
 	return [prop*rune_composite_prop/total,prop*(1-rune_composite_prop)/total,1/total]
 
 func getRandomGem(power):
-	return getRandomGemWithVars([],power)
+	return getRandomGemWithVars([],["top",[]],power)
 
-func getRandomGemWithVars(vars,power):
+# Apart from the list of variables that the gem may use, we indicate a context.
+# The context could well be a class, but it is only used here so we encode it through lists with strings, where the head indicates what kind of context it is, pretty much like LISP expressions.
+# A head "top" indicates that it is a top level gem. No arguments.
+# A head "rune" indicates that it is the body of a rune. No arguments (this could end up, after evaluating, essentially anywhere).
+# A head "head" indicates that it is the head of a composite gem. Lone argument is the recursive context of the composite gem.
+# A head "arg" indicates that it is the argument of a composite gem. Lone argument is the head of the composite gem.
+# Contexts are (for now) exclusively used when generating elemental gems. Certain elemental gems should only appear under certain other elemental gems, or viceversa, or at least in most cases, and their power reduced otherwise. That is what we control here.
+func getRandomGemWithVars(vars,context,power):
 	var type_probs = getGemTypeProbs(power)
 	var rem_power
 	
@@ -54,7 +61,7 @@ func getRandomGemWithVars(vars,power):
 		rune.efficiency_gem = eff_gem
 		
 		rem_power = power*rune_decay
-		var body = getRandomGemWithVars(vars,rem_power)		
+		var body = getRandomGemWithVars(vars,["rune"],rem_power)
 		rune.body = body
 		
 		# Remove the variable
@@ -66,8 +73,8 @@ func getRandomGemWithVars(vars,power):
 	elif r < type_probs[0]+type_probs[1]:
 		# Get two gems of lower power.
 		rem_power = power*composite_decay;
-		var f = getRandomGemWithVars(vars,rem_power)
-		var x = getRandomGemWithVars(vars,rem_power)
+		var f = getRandomGemWithVars(vars,["head",context],rem_power)
+		var x = getRandomGemWithVars(vars,["arg",f],rem_power)
 		
 		var composite = class_composite.new()
 		composite.f = f
@@ -76,20 +83,20 @@ func getRandomGemWithVars(vars,power):
 		return composite
 	# And a chance that it is just an elemental gem. This case includes variables.
 	else:
-		return getRandomSingleGem(vars,power)
+		return getRandomSingleGem(vars,context,power)
 
-func getRandomSingleGem(vars,power):
+func getRandomSingleGem(vars,context,power):
 	var total = vars.size()+weight_true_elemental
 	
 	var r = rand_range(0,total)
 	
 	if r > vars.size():
 		# True elemental
-		return getRandomElementalGem(power)
+		return getRandomElementalGem(power,context)
 	else:
 		# Variable
 		return vars[floor(r)]
 
 # Override
-func getRandomElementalGem(power):
+func getRandomElementalGem(power,context):
 	return null

@@ -601,5 +601,5 @@ func _ready():
 	#test_random_runes()
 	#test_scenario()
 	#test_scenario_2()
-	test_versus()
-	#test_repertoire_randomizing()
+	#test_versus()
+	test_repertoire_randomizing()

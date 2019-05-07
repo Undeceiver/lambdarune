@@ -1,8 +1,8 @@
 extends "res://Elemental_Gem.gd"
 
-var class_damage_effect = preload("res://Effects/DamageEffect.gd")
-var class_ondamage_effect = preload("res://Effects/OnDamageEffect.gd")
-var class_multieffect = preload("res://Effects/MultiEffect.gd")
+const class_damage_effect = preload("res://Effects/DamageEffect.gd")
+const class_ondamage_effect = preload("res://Effects/OnDamageEffect.gd")
+const class_multieffect = preload("res://Effects/MultiEffect.gd")
 
 var damage
 
@@ -25,7 +25,7 @@ func express_elemental(args):
 func to_text_elemental(args):
 	var result
 	if args.size() > 0:
-		result = "\nwhen taking " + str(damage) + " or less damage: "
+		result = "\nwhen taking " + str(damage) + " or more damage: "
 		for arg in args:
 			var sres = indent_all(arg)
 			result = result + sres

@@ -12,7 +12,7 @@ func _ready():
 
 func effectIn(effect):
 	if effect.hasType("damage"):
-		if effect.damage <= damage:
+		if effect.damage >= damage:
 			var effect_instance = to_do.clone()
 			for exc in exclusions:
 				effect_instance.exclusions.append(exc)

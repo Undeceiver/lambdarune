@@ -21,6 +21,7 @@ extends Node
 #	- "ondamage": When receiving damage, applies an effect. Has field "effect", which is an effect that is cloned and applied each time damage is received, and damage, which indicates the minimum damage to trigger the damage.
 #	- "order": Effect that contains another effect that is ordered to be produced on a particular element. Contains field "effect" indicating the sub-effect, and "code" including a text code to identify who is it ordered to.
 #	- "position": Has fields x and y, indicating the position of the element.
+#	- "repeat": Has field "sub_effect", an effect that is applied on the element every "freq" turns and at most "repetitions" times (0 means unbounded number of times).
 #	- "turnbased": Has a function "runTurn" which runs a turn on the effect.
 # var types = []
 var element
