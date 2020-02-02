@@ -1,0 +1,31 @@
+A. ENDLESS IN A FUN WAY
+
+- The game is designed around an intricate combinatorial mechanic that allows for hard to predict endlessness which does not easily become imbalanced.
+- Big challenge.
+- Main selling point of the game.
+- Target audience of the game are nerdy people who like theorycrafting.
+- Endlessness and intricate combinatorics apply to many (all?) aspects of the game, including but not necessarily limited to: Spells, monsters, maps, AI types.
+
+B. DUNGEON CRAWL LOOTER
+
+- It is a dungeon crawl looter game. Largely based on the Diablo ideas.
+- The spells, however, are loot itself. You have gems and you combine them to align your spells.
+- Tattoos as an additional system. Similar to items / equipment. Predefined slots in your body (arms / legs, etc.). They reuse elements from the spells, but the final type is a special one.
+- Dungeons are portals into weird dimensions. Portals themselves are also another loot system. Possibly vaguely connected to the others, but probably less so.
+
+C. SKILL BASED: BALANCE THROUGH DIFFICULTY
+
+- Avoid as much as possible spells with direct effects. Design around triggers.
+- Triggers are ways to launch spells. Lots of examples below.
+Ex. Spawn bits on the screen that you need to pop to produce the spell effects.
+Ex. Spawn props on the map that you need to pop to produce the spell effects.
+Ex. Timed events with negative consequences if you fail.
+Ex. Buffs with a rhythm component that keeps it going.
+Ex. Reactive effects, such as immunity from certain types of things that only works if you activate it within a certain time frame before it affects you, and otherwise has a negative effect.
+Ex. Mini-puzzles that point to a particular key that needs to be pressed to produce the effect.
+- The game is not aimed to be competitive, but in order to avoid encouraging macros and scripts too much, all the triggers should be taken care of to prevent easy automation.
+Ex. Make pixel detection difficult.
+Ex. Make timings variable.
+Ex. Make rhythms variable.
+Ex. Make puzzles variable.
+- Consider: Add many tiers from braindead to very hard triggers with balanced effects, so that players from different levels of commitment can play the game.

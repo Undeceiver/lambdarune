@@ -1,0 +1,18 @@
+Notions about the type system of the game
+
+- Base types
+- Function types
+- Polymorphism: universally quantified type variables => Implies f.o. unification.
+- May as well add higher-kinded types then (k -> *) => Still enough with f.o. unification. => ONLY IF I FIND A USE FOR THEM. OTHERWISE DO NOT WASTE YOUR TIME.
+
+* We do not need to write function code in general. We have lambda abstraction but we have no defining new named functions.
+* We have predefined functions with predefined types.
+* We compose them.
+* We may have to implement typical things like map or perhaps even more complicated later on, but the system will remain quite quite simple, so for example even fmap is probably a lot more than we need.
+* How to type runes (lambda abstractions): Assign type variables to the variables and to the result. Each application is a unification. Solve the unification problem. Output the resulting type.
+* When a gem is used for a purpose, that unifies it with the type that purpose needs to have.
+
+
+* What do remaining type variables after unification mean: They should not appear.
+
+For example, "Immunity to an element" may have type "Element -> Effect". What this means is that you need to provide it with a gem of type "Element" to be able to use it. Inhabitants of this type are probably just constant gems "Fire", "Cold", "Lightning", etc. Possibly also combined versions of these, but not more. The details of what that element means for the effect are within the implementation of the gems, and are NOT part of the type system. We are using the type system to combine gems, not to program the detailed effects in the game. An "Element" gem internally probably has things like checking whether an effect is of that element, or imbuing an effect with the element, and so on.

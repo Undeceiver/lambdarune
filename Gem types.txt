@@ -1,3 +1,5 @@
+OUTDATED (01/02/2020)
+
 - Rune
 - Main runic gem (variable). Need to differentiate each of them.
 - Elemental gem

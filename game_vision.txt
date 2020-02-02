@@ -1,3 +1,5 @@
+THIS IS OUTDATED. WE KEEP FOR ARCHIVAL REASONS. (01/02/2020)
+
 -Game consists on one to one scenarios with bosses. Bosses may summon stuff or not, but it all starts as a one on one.
 -Scenarios may be pre-set or randomized. Each boss is a single element (possibly with built-in effects) and a set of gems (spells) that they may play. This implies a need for some sort of boss-decision-AI. (Different from individual summons AIs, which the boss may actually also possess).
 -Game mode can end up being something like choose a specific boss, choose a random boss with a certain power, something more story-like or just keep fighting random bosses of increasing power. For random boss generation we need a randomizing of their built-in effects. Probably gem randomizing is not the best for this. Something simpler is needed. More high level.
