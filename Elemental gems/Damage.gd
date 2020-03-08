@@ -42,3 +42,6 @@ func _ready():
 
 func to_string():
 	return "dmg"+String(damage)
+
+func getType(variables, runes):
+	return ["basic","dmg"]

@@ -1,9 +1,9 @@
 extends Node
 
-const class_composite = preload("Composite_Gem.gd")
-const class_rune = preload("Rune.gd")
-const class_main_gem = preload("Main_Gem.gd")
-const class_eff_gem = preload("Efficiency_Gem.gd")
+var class_composite = load("Composite_Gem.gd")
+var class_rune = load("Rune.gd")
+var class_main_gem = load("Main_Gem.gd")
+var class_eff_gem = load("Efficiency_Gem.gd")
 
 func _ready():
 	# Called every time the node is added to the scene.

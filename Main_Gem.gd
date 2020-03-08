@@ -1,4 +1,6 @@
-extends 'Gem.gd'
+extends Gem
+
+class_name Main_Gem
 
 # Rune to which this main gem belongs
 var gem_rune
@@ -11,3 +13,6 @@ func subst(rune, main_gem):
 
 func to_string():
 	return String(gem_rune.getvarnum())
+
+func getType(variables, runes):
+	return variables[runes[gem_rune]]

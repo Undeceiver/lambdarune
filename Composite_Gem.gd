@@ -1,16 +1,19 @@
-extends "Gem.gd"
+extends Gem
+
+class_name Composite_Gem
 
 var f
 var x
 
+#var class_rune = load("res://Rune.gd")
+
 const to_fill = 2.0
-const class_rune = preload("Rune.gd")
 
 func subst(rune, main_gem):
 	var eval_f = f.subst(rune, main_gem)
 	var eval_x = x.subst(rune, main_gem)
 	
-	var result = get_script().new()
+	var result = load(get_script().resource_path).new()
 	result.f = eval_f
 	result.x = eval_x
 	return result
@@ -33,7 +36,7 @@ func eval(energy, filler_gem):
 			#print("Result: " + result.to_string())
 			return result
 		else:
-			var result = get_script().new()
+			var result = load(get_script().resource_path).new()
 			result.f = maybe_fill(eval_f, filler_gem)
 			result.x = maybe_fill(eval_x, filler_gem)
 			#print("Result: " + result.to_string())
@@ -87,3 +90,18 @@ func head_and_args_text():
 
 func to_string():
 	return "("+f.to_string()+" "+x.to_string()+")"
+
+func getType(variables, runes):
+	var real_head_t = f.getType(variables,runes)
+	var real_arg_t = x.getType(variables,runes)
+	
+	if real_head_t == null or real_arg_t == null:
+		return null
+	
+	var res_v = Types.getFreeVariable(variables)
+	var to_unify = ["func",real_arg_t,["var",res_v]]
+	
+	if (!Types.unify([[to_unify,real_head_t]], variables)):
+		return null
+	else:
+		return variables[res_v]

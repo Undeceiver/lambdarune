@@ -8,7 +8,7 @@ A. ENDLESS IN A FUN WAY
 
 B. DUNGEON CRAWL LOOTER
 
-- It is a dungeon crawl looter game. Largely based on the Diablo ideas.
+- It is a dungeon crawl looter ARPG game. Largely based on the Diablo ideas.
 - The spells, however, are loot itself. You have gems and you combine them to align your spells.
 - Tattoos as an additional system. Similar to items / equipment. Predefined slots in your body (arms / legs, etc.). They reuse elements from the spells, but the final type is a special one.
 - Dungeons are portals into weird dimensions. Portals themselves are also another loot system. Possibly vaguely connected to the others, but probably less so.

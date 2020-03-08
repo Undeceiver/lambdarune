@@ -1,4 +1,6 @@
-extends "res://Effect.gd"
+extends Effect
+
+class_name TwoDBattlegroundEffect
 
 var types = []
 

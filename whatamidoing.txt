@@ -1,0 +1,3 @@
+WHAT AM I DOING RIGHT NOW WITH LAMBDA RUNE?
+
+- Working on the elemental gems document to produce a decent list of effects that almost definitely need to make it into the game, also to check if my framework for defining them is enough.

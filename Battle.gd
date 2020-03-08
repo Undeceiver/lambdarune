@@ -1,5 +1,7 @@
 extends Node
 
+class_name Battle
+
 # A battle consists of a battleground and a series of end conditions.
 signal battle_ended
 

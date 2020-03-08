@@ -1,5 +1,6 @@
 extends Node
 
+class_name Effect
 # Here we include the possible types we are using so far. The typing of effects is multiple.
 # While it is only labels, we exploit the dynamic nature of the language to actually *expect* certain fields
 # in effects with certain types. Moreover, types should be used for this purpose, and types only created when we
@@ -35,10 +36,10 @@ func _ready():
 	pass
 
 func mayEffectGoIn(effect):
-	return ALLOW
+	return Permission.ALLOW
 
 func mayIGoIn():
-	return ALLOW
+	return Permission.ALLOW
 
 func modifyIn(effect):
 	return effect
@@ -53,10 +54,10 @@ func isImmediate():
 	return false
 
 func mayIGoOut():
-	return ALLOW
+	return Permission.ALLOW
 
 func mayEffectGoOut(effect):
-	return ALLOW
+	return Permission.ALLOW
 
 func myselfOut():
 	pass

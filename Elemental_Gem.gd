@@ -1,4 +1,4 @@
-extends 'Gem.gd'
+extends Gem
 
 # THIS IS NOT WHAT WE ACTUALLY DO, BUT I SAVE IT BECAUSE IT IS A DECENT IDEA I MAY FALL BACK TO.
 # Energy gems are used for two things. The "syntax" and the "semantics".
@@ -31,3 +31,8 @@ func to_text():
 
 func to_text_elemental(args):
 	return "Unknown elemental gem"
+
+# Specific for each elemental gem! Although they should generally not depend on runes at all, and on variables only to create new ones.
+func getType(variables, runes):
+	.getType(variables,runes)
+

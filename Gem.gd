@@ -1,4 +1,6 @@
-const class_rune = preload("Rune.gd")
+class_name Gem
+
+var class_rune = load("res://Rune.gd")
 
 # rune indicates in the context of which rune the gem is being evaluated.
 # main_gem indicates by which gem the main gem is to be replaced
@@ -36,3 +38,10 @@ func to_text():
 # Utilities for the to_text functionn
 func indent_all(text):
 	return text.replace("\n","\n\t")
+	
+
+# Variables is passed so that the function can check which variables are already bound somewhere, and also so that it can update it with newly bound variables.
+# Similarly, runes is a map from runes to variables assigned to those runes. Used in the main gems when matching types.
+# It should return null if the gem does not type check.
+func getType(variables, runes):
+	return ["var",Types.getFreeVariable(variables)]

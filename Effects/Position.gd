@@ -14,12 +14,12 @@ func _ready():
 
 func mayEffectGoIn(effect):
 	if effect.hasType("position"):
-		return DENY
+		return Permission.DENY
 	else:
-		return ALLOW
+		return Permission.ALLOW
 
 func mayIGoIn():
-	return ALLOW
+	return Permission.ALLOW
 
 func modifyIn(effect):
 	return effect
@@ -38,10 +38,10 @@ func isImmediate():
 	return false
 
 func mayIGoOut():
-	return ALLOW
+	return Permission.ALLOW
 
 func mayEffectGoOut(effect):
-	return ALLOW
+	return Permission.ALLOW
 
 func myselfOut():
 	pass

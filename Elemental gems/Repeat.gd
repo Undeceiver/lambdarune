@@ -37,3 +37,9 @@ func to_string():
 	result = result + "]"
 	
 	return result
+
+func getType(variables, runes):
+	# This is for testing only!! Needs to be replaced later on when we have a better type system.
+	var myvar = Types.getFreeVariable(variables)
+	
+	return ["func",["var",myvar],["var",myvar]]

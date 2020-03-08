@@ -1,5 +1,7 @@
 extends Node
 
+class_name Element
+
 var battleground
 var effects = []
 

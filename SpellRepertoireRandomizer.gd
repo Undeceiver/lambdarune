@@ -1,9 +1,9 @@
 extends Node
 
-const class_spell_gem_rnd = preload("SpellGemRandomizer.gd")
+var class_spell_gem_rnd = load("SpellGemRandomizer.gd")
 const class_spell_repertoire = preload("SpellRepertoire.gd")
 const class_spell = preload("Spell.gd")
-const class_rune = preload("Rune.gd")
+var class_rune = load("Rune.gd")
 
 # The idea of this class is as follows: 
 #	- The number of spells is a geometric distribution with parameter ps indicating the probability of adding a new spell at each point.

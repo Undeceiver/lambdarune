@@ -1,4 +1,4 @@
-extends "res://FindAndKillEffect.gd"
+extends "res://Effects/FindAndKillEffect.gd"
 
 const class_move_effect = preload("res://Effects/MoveEffect.gd")
 const class_damage_effect = preload("res://Effects/DamageEffect.gd")

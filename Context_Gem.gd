@@ -1,1 +1,1 @@
-extends 'Gem.gd'
+extends Gem

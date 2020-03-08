@@ -1,7 +1,7 @@
 extends "GemRandomizer.gd"
 
-const class_damage_gem = preload("res://Elemental gems/Damage.gd")
-const class_repeat_gem = preload("res://Elemental gems/Repeat.gd")
+var class_damage_gem = load("res://Elemental gems/Damage.gd")
+var class_repeat_gem = load("res://Elemental gems/Repeat.gd")
 
 func _ready():
 	# Called every time the node is added to the scene.

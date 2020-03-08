@@ -1,0 +1,94 @@
+-- Note: There are two kinds of arguments. Hard arguments are still arguments but the player is not able to manipulate them, such as damage values and the like. Soft arguments are the ones the player manipulates. We put hard arguments first, with a "=>" arrow.
+
+-- Some type info:
+Effect: An actual effect that is inflicted on an element. In our effect system, this corresponds to an immediate effect.
+Trigger: A way to trigger an effect in the game. A mini-game or the like.
+Spell: A trigger that produces an effect. There is an additional check that when a Trigger and an Effect are paired, the Trigger needs to have difficulty greater or equal than the power of the Effect. This is a hardcoded thing on top.
+State: It really is an effect in our effect system, but a non-immediate one. We cannot cast those directly, we need something that says how long they will stay or something along those lines.
+Autotrigger: An effect that triggers when something happens, producing another effect. It is generally used to produce a certain type of states.
+Direction: A way to indicate somehow in what direction a spell is cast. It can be something more complicated than a simple direction, but that really depends on the Trigger
+DirectedTrigger: A trigger that produces a direction when produced, so that it can be used with effects that require a direction.
+Source: Conceptually, it is like a target that is dynamically chosen on some basis.
+
+Some phenomena may make sense to apply to Effects, increasing the difficulty, or to Spells, producing multiple triggers. For example, we may wish to cast a single spell that produces an effect every certain amount of time, or we may wish to cast a pre-spell that casts another spell every certain amount of time. These are separate elemental gems. We call the first kind "produce" gems, and the second one, "cast" gems.
+
+-- Numerical values, for example, we keep as hard arguments because they may sometimes be increasing or decreasing with difficulty depending on what they're used for, and their scale also changes a lot. Keeping them as hard values allows us to tailor their drop rates to the specific gems they are appearing attached to, helping us keep balance.
+-- It is not enough to make it trivial to balance, though. Some things still turn values around on themselves or depend largely on how they are combined. We need to have a "difficulty evaluation system" that adequately calculates the power level of an effect.
+- Nat: Natural numbers.
+- 0Nat :: Natural numbers including zero.
+- InfNat :: Natural numbers including infinity.
+- 0InfNat :: Natural numbers including zero and infinity.
+
+
+-- Creating a spell
+- Spell :: Trigger -> Effect -> Spell
+- DirectedSpell :: DirectedTrigger -> (Direction -> Effect) -> Spell
+
+-- The actual gems:
+
+- Empty mind :: Spell (Remove all "cast" effects from the caster. This is useful if the player involuntarily produces too many cast effects that clutter their ability to do what they really want to do. Basic spell (and it is in fact a spell, not an effect; it should have an easy and very characteristic trigger).
+- Damage :: Nat => Effect
+- Produce on damage :: Nat => Effect -> Autotrigger
+- Cast on damage :: Nat => Spell -> Autotrigger
+- Combine production :: Effect -> Effect -> Effect
+- Combine cast :: Spell -> Spell -> Spell
+- Repeat production :: Nat (Frequency) => InfNat (Maximum number of repetitions) => Effect -> Effect
+- Repeat cast :: Nat => InfNat => Spell -> Effect
+- Delay production :: Nat => Effect -> Effect
+- Delay cast :: Nat => Spell -> Effect
+- Duration :: Nat => State -> Effect
+- Durability :: Nat => Autotrigger -> Autotrigger (a state that triggers a certain amount of times. Implemented by producing the effect itself and a copy of itself with 1 less durability.)
+- Autotrigger :: Autotrigger -> State (All autotriggers are states)
+- Instant :: State -> Effect (the state lasts literally only for as long as the current effect is being resolved)
+- Heal :: Nat => Effect
+- Produce on heal :: Nat => Effect -> Autotrigger
+- Cast on heal :: Nat => Spell -> Autotrigger
+
+- Lifesteal damage (without argument, place a buff. With argument, change sub-effects to lifesteal)
+- Convert damage into healing (without agument, place a buff. With argument, change sub-effects to change damage into healing)
+- Convert healing into damage (same)
+- Summon (and add any effects that are added as argument)
+- Move (relative, fixed) (without argument, just move. With argument, when moving, do something)
+- Speed / acceleration
+- Choose an element (targetting) (and cast the effects on it)
+
+- Types of things (damage types, mana types, cooldown types...): Type effects, which attach a certain type to its subeffects.
+- Mana (without argument, generate mana. With argument, cast effects but only after using a certain amount of mana (and don't if no mana))
+- Cooldown (without argument, generate a cooldown. With argument, cast effects but only if there is no cooldown).
+- Cumulate information that is released through another effect.
+
+- Remove effects.
+- Immune to effects.
+- Change effects of certain types: Super-types of effects that essentially are interfaces indicating whether that effect is susceptible to a modifying effect. (e.g. magnitude: Means it has a main magnitude that can be, for example, duplicated).
+
+- Until effects (how to identify the effects that trigger it?)
+- Whenever effects (...)
+
+- Triggered effects with link identifiers. Can be used for many things. For example, to give commands to summons.
+
+
+-- Targetting systems:
+- Self :: Target
+- Closest enemy in range :: Nat => Target
+- Combine targets :: Target -> Target -> Target
+- All enemies in range :: Nat => Target
+- Closest ally in range :: Nat => Target
+- All allies in range :: Nat => Target
+- Closest living being in range :: Nat => Target
+- Closest element in range :: Nat => Target
+- All living beings in range :: Nat => Target
+- All elements in range :: Nat => Target
+- Towards :: Target -> Direction
+
+- Target :: Target -> Effect -> Effect
+
+-- Source systems:
+-- This system really should and will be implemented in the effects system itself. But here we have some gems to reference the values that it stores.
+-- When it is triggered, it checks the source of the effect that triggered it, and produces the given effect on that source.
+- To source :: Source -> Effect -> Autotrigger
+- Source :: Source
+- Next source :: Source -> Source
+- Fixed source :: Target -> Source
+- Towards source :: Source -> (Direction -> Effect) -> Autotrigger
+
+

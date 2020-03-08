@@ -21,7 +21,7 @@ func mayIGoIn():
 			var positions = element_effects[1]
 			for position in positions:
 				if position.x == self.x and position.y == self.y:
-					return DENY
+					return Permission.DENY
 
 func myselfIn():
 	# Effects can modify other effects in two ways. "Passively" or "actively".

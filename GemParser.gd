@@ -1,9 +1,9 @@
 extends Node
 
-const class_rune = preload("Rune.gd")
-const class_composite = preload("Composite_Gem.gd")
-const class_main_gem = preload("Main_Gem.gd")
-const class_efficiency_gem = preload("Efficiency_Gem.gd")
+var class_rune = load("Rune.gd")
+var class_composite = load("Composite_Gem.gd")
+var class_main_gem = load("Main_Gem.gd")
+var class_efficiency_gem = load("Efficiency_Gem.gd")
 
 var end = ";"
 var separator = " "
@@ -113,12 +113,22 @@ func read_token(vars,expr):
 			# Else parse the elemental gem and return it.
 			return ["other",read_elemental_gem(id),rest]
 
-const class_dmg = preload("res://Elemental gems/Damage.gd")
+var class_dmg = load("res://Elemental gems/Damage.gd")
+var class_repeat = load("res://Elemental gems/Repeat.gd")
 
 func read_elemental_gem(id):
 	if id.left(3) == "dmg":
 		var gem = class_dmg.new()
 		gem.damage = int(id.right(3))
+		return gem
+	elif id.left(3) == "rep":
+		var gem = class_repeat.new()
+		var args = id.right(3)
+		var largs = args.split(",")
+		var freq = largs[0]
+		var reps = largs[1]
+		gem.freq = int(freq)
+		gem.repetitions = int(reps)
 		return gem
 
 func read_efficiency(expr):

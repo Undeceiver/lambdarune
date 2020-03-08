@@ -1,10 +1,10 @@
 extends Node2D
 
-const class_rune = preload("Rune.gd")
-const class_elemental_gem = preload("Elemental_Gem.gd")
-const class_main_gem = preload("Main_Gem.gd")
-const class_composite_gem = preload("Composite_Gem.gd")
-const class_efficiency_gem = preload("Efficiency_Gem.gd")
+var class_rune = load("Rune.gd")
+var class_elemental_gem = load("Elemental_Gem.gd")
+var class_main_gem = load("Main_Gem.gd")
+var class_composite_gem = load("Composite_Gem.gd")
+var class_efficiency_gem = load("Efficiency_Gem.gd")
 
 const class_2dbattleground = preload("2DBattleground.gd")
 const class_tb2dbattleground = preload("TurnBased2DBattleground.gd")
@@ -590,6 +590,52 @@ func test_repertoire_randomizing():
 	print("Repertoire:\n\n" + repertoire.to_text())
 	
 	#get_tree().quit()
+	
+
+func test_typecheck():
+	var t1 = ["func",["var","x"],["func",["var","z"],["basic","a"]]]
+	var t2 = ["func",["func",["var","y"],["basic","a"]],["var","y"]]
+	
+	var variables = {"x":["var","x"], "y":["var","y"], "z":["var","z"]}
+	
+	var res = Types.unify([[t1,t2]],variables)
+	
+	print("Unifiable? " + str(res))
+	print("x -> " + str(variables["x"]))
+	print("x -> " + str(Types.applyBinding(variables,["var","x"])))
+	print("y -> " + str(variables["y"]))
+	print("y -> " + str(Types.applyBinding(variables,["var","y"])))
+	print("z -> " + str(variables["z"]))
+	print("z -> " + str(Types.applyBinding(variables,["var","z"])))
+	
+	var nvar = Types.getFreeVariable(variables)
+	print(nvar + " -> " + str(variables[nvar]))
+	
+	var nvar2 = Types.getFreeVariable(variables)
+	print(nvar2 + " -> " + str(variables[nvar2]))
+	
+	get_tree().quit()
+
+func test_typecheck2():
+	var parser = class_gem_parser.new()
+	
+	#var text = "(\\x 0.65 ((\\y 0.74 (y (y x))) dmg5)) dmg12;"
+	#var text = "rep1,3 (rep2,5 dmg6);;"
+	#var text = "rep1,3 (dmg77 dmg6);;"
+	#var text = "(\\x 0.65 (rep3,3 x));;"
+	#var text = "(\\x 0.65 (x dmg7));;"
+	#var text = "(\\x 0.65 (x rep4,7));;"
+	#var text = "(\\x 0.65 (\\y 0.74 (y x)));;"
+	var text = "(\\x 0.65 (\\y 0.74 (y x))) rep4,5;;"
+	var gem = parser.read_gem(text)
+	print("Parsed this:")
+	print(gem.to_string())
+	print("Which has type:")
+	var variables = {}
+	var runes = {}
+	print(str(Types.applyBinding(variables,gem.getType(variables,runes))))
+	
+	get_tree().quit()
 
 func _ready():
 	#test_runes_1()
@@ -602,4 +648,6 @@ func _ready():
 	#test_scenario()
 	#test_scenario_2()
 	#test_versus()
-	test_repertoire_randomizing()
+	#test_repertoire_randomizing()
+	#test_typecheck()
+	test_typecheck2()

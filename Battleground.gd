@@ -1,4 +1,6 @@
-extends "res://Element.gd"
+extends Element
+
+class_name Battleground
 
 const class_effect = preload("Effect.gd")
 const class_new_element = preload("Effects/NewElement.gd")
@@ -23,24 +25,24 @@ func _ready():
 	pass
 
 func informAddEffect(effect):
-	next_actions.append([INFORM_ADD_EFFECT,effect])
+	next_actions.append([ActionType.INFORM_ADD_EFFECT,effect])
 
 func informRemoveEffect(effect):
-	next_actions.append([INFORM_REMOVE_EFFECT,effect])
+	next_actions.append([ActionType.INFORM_REMOVE_EFFECT,effect])
 
 func addEffect(effect, element):
 	effect.element = element
-	getActions().append([ADD_EFFECT,effect])
+	getActions().append([ActionType.ADD_EFFECT,effect])
 
 func removeEffect(effect):
-	getActions().append([REMOVE_EFFECT,effect])
+	getActions().append([ActionType.REMOVE_EFFECT,effect])
 
 func addElement(element):
 	element.battleground = self
-	getActions().append([ADD_ELEMENT,element])
+	getActions().append([ActionType.ADD_ELEMENT,element])
 
 func removeElement(element):
-	getActions().append([REMOVE_ELEMENT,element])
+	getActions().append([ActionType.REMOVE_ELEMENT,element])
 
 func getActions():
 	if in_process:
@@ -55,17 +57,17 @@ func processActions():
 	while cur_actions.size() > 0:
 		var action = cur_actions.front()
 		cur_actions.pop_front()
-		if action[0] == INFORM_ADD_EFFECT:
+		if action[0] == ActionType.INFORM_ADD_EFFECT:
 			doInformAddEffect(action[1])
-		elif action[0] == INFORM_REMOVE_EFFECT:
+		elif action[0] == ActionType.INFORM_REMOVE_EFFECT:
 			doInformRemoveEffect(action[1])
-		elif action[0] == ADD_EFFECT:
+		elif action[0] == ActionType.ADD_EFFECT:
 			doAddEffect(action[1])
-		elif action[0] == REMOVE_EFFECT:
+		elif action[0] == ActionType.REMOVE_EFFECT:
 			doRemoveEffect(action[1])
-		elif action[0] == ADD_ELEMENT:
+		elif action[0] == ActionType.ADD_ELEMENT:
 			doAddElement(action[1])
-		elif action[0] == REMOVE_ELEMENT:
+		elif action[0] == ActionType.REMOVE_ELEMENT:
 			doRemoveElement(action[1])
 	
 	in_process = false
@@ -109,35 +111,35 @@ func doInformRemoveEffect(effect):
 	effect.myselfOut()
 
 func combinePermission(prev,new):
-	if prev == class_effect.ALLOW:
-		if new == class_effect.DENY:
-			return class_effect.DENY
-		elif new == class_effect.FORCE_ALLOW:
-			return class_effect.FORCE_ALLOW
-		elif new == class_effect.FORCE_DENY:
-			return class_effect.FORCE_DENY
+	if prev == class_effect.Permission.ALLOW:
+		if new == class_effect.Permission.DENY:
+			return class_effect.Permission.DENY
+		elif new == class_effect.Permission.FORCE_ALLOW:
+			return class_effect.Permission.FORCE_ALLOW
+		elif new == class_effect.Permission.FORCE_DENY:
+			return class_effect.Permission.FORCE_DENY
 		else:
-			return class_effect.ALLOW
-	elif prev == class_effect.DENY:
-		if new == class_effect.FORCE_ALLOW:
-			return class_effect.FORCE_ALLOW
-		elif new == class_effect.FORCE_DENY:
-			return class_effect.FORCE_DENY
+			return class_effect.Permission.ALLOW
+	elif prev == class_effect.Permission.DENY:
+		if new == class_effect.Permission.FORCE_ALLOW:
+			return class_effect.Permission.FORCE_ALLOW
+		elif new == class_effect.Permission.FORCE_DENY:
+			return class_effect.Permission.FORCE_DENY
 		else: 
-			return class_effect.DENY
-	elif prev == class_effect.FORCE_ALLOW:
-		return class_effect.FORCE_ALLOW
-	elif prev == class_effect.FORCE_DENY:
-		return class_effect.FORCE_DENY
+			return class_effect.Permission.DENY
+	elif prev == class_effect.Permission.FORCE_ALLOW:
+		return class_effect.Permission.FORCE_ALLOW
+	elif prev == class_effect.Permission.FORCE_DENY:
+		return class_effect.Permission.FORCE_DENY
 
 func doAddEffect(effect):
 	var listeners = getEffectListeners(effect)
-	var permission = class_effect.ALLOW
+	var permission = class_effect.Permission.ALLOW
 	permission = combinePermission(permission,effect.mayIGoIn())
 	for other in listeners:
 		permission = combinePermission(permission,other.mayEffectGoIn(effect))
 	
-	if(permission == class_effect.DENY or permission == class_effect.FORCE_DENY):
+	if(permission == class_effect.Permission.DENY or permission == class_effect.Permission.FORCE_DENY):
 		return
 	
 	for other in listeners:
